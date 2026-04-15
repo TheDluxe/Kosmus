@@ -469,18 +469,6 @@ body {
   background-position: center;
 }
 
-.work__image::after {
-  content: 'Screenshot';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-mark);
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  color: rgba(240,228,192,0.3);
-}
-
 .work__item:hover .work__image { transform: scale(1.03); }
 
 .work__overlay {
