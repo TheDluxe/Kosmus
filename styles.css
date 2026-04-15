@@ -456,17 +456,17 @@ body {
 .work__image--1 {
   background-image: url('images/elise-preview.png');
   background-size: cover;
-  background-position: center;
+  background-position: left center;
 }
 .work__image--2 {
   background-image: url('images/marcus-preview.png');
   background-size: cover;
-  background-position: center;
+  background-position: left center;
 }
 .work__image--3 {
   background-image: url('images/nadia-preview.png');
   background-size: cover;
-  background-position: center;
+  background-position: left center;
 }
 
 .work__item:hover .work__image { transform: scale(1.03); }
