@@ -454,13 +454,19 @@ body {
   transition: transform 0.6s ease;
 }
 .work__image--1 {
-  background: linear-gradient(135deg, #1a1208 0%, #2e1f0a 40%, #1a1208 100%);
+  background-image: url('images/elise-preview.jpg');
+  background-size: cover;
+  background-position: center;
 }
 .work__image--2 {
-  background: linear-gradient(135deg, #080f1a 0%, #0f2035 40%, #080f1a 100%);
+  background-image: url('images/marcus-preview.jpg');
+  background-size: cover;
+  background-position: center;
 }
 .work__image--3 {
-  background: linear-gradient(135deg, #0d1208 0%, #1a2b10 40%, #0d1208 100%);
+  background-image: url('images/nadia-preview.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .work__image::after {
