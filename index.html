@@ -1,445 +1,545 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kosmus Studio — Premium Web Design for Financial Coaches</title>
-  <meta name="description" content="We build for financial coaches who have outgrown what cheap design can do for them." />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Cormorant+SC:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KOSMUS | High-End Design for Financial Coaches</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&amp;family=DM+Sans:wght@400;500;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&amp;family=Manrope:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+        .editorial-inset {
+            box-shadow: 0px 20px 40px rgba(12, 10, 7, 0.05);
+        }
+        .font-cormorant-sc { font-family: 'Cormorant SC', serif; }
+
+        /* Animation Styles */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .draw-rule {
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+        }
+        .draw-rule.active {
+            transform: scaleX(1);
+        }
+
+        .btn-luxury {
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .btn-luxury:hover {
+            letter-spacing: 0.1em;
+            transform: translateY(-2px);
+        }
+
+        .parallax-text {
+            will-change: transform;
+            transition: transform 0.1s linear;
+        }
+
+        .work-card-overlay {
+            opacity: 0;
+            backdrop-filter: blur(0px);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .work-card:hover .work-card-overlay {
+            opacity: 1;
+            backdrop-filter: blur(8px);
+        }
+
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-fixed-dim": "#edc156",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#251a00",
+                        "background": "#fef9f1",
+                        "surface-container": "#f2ede5",
+                        "surface-container-highest": "#e7e2da",
+                        "surface-container-low": "#f8f3eb",
+                        "outline-variant": "#d1c5b0",
+                        "on-background": "#1d1c17",
+                        "on-tertiary-fixed-variant": "#5a4400",
+                        "tertiary-fixed-dim": "#e8c267",
+                        "surface-container-high": "#ece8e0",
+                        "on-surface-variant": "#4e4636",
+                        "primary-fixed": "#ffdf99",
+                        "surface": "#fef9f1",
+                        "surface-dim": "#ded9d2",
+                        "on-tertiary-fixed": "#251a00",
+                        "surface-tint": "#775a00",
+                        "surface-bright": "#fef9f1",
+                        "surface-variant": "#e7e2da",
+                        "primary-container": "#b8912a",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#5a4300",
+                        "secondary": "#695d49",
+                        "inverse-primary": "#edc156",
+                        "secondary-fixed-dim": "#d5c4ac",
+                        "on-secondary-fixed": "#231a0b",
+                        "secondary-container": "#efddc4",
+                        "on-tertiary": "#ffffff",
+                        "on-surface": "#1d1c17",
+                        "inverse-on-surface": "#f5f0e8",
+                        "tertiary-container": "#b4923c",
+                        "on-secondary-fixed-variant": "#514532",
+                        "tertiary": "#765a02",
+                        "on-tertiary-container": "#3c2d00",
+                        "on-primary": "#ffffff",
+                        "on-primary-container": "#3d2c00",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#32302b",
+                        "on-secondary-container": "#6e614d",
+                        "outline": "#807664",
+                        "primary": "#775a00",
+                        "secondary-fixed": "#f2e0c7",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#ffdf97"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    fontFamily: {
+                        "headline": ["Cormorant Garamond", "serif"],
+                        "body": ["DM Sans", "sans-serif"],
+                        "label": ["DM Sans", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-
-  <!-- GRAIN OVERLAY -->
-  <div class="grain" aria-hidden="true"></div>
-
-  <!-- NAV -->
-  <nav class="nav" id="nav">
-    <a href="#" class="nav__logo">
-      <span class="nav__logo-k">K</span><span class="nav__logo-rest">OSMUS</span>
-    </a>
-    <button class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span>
-    </button>
-    <ul class="nav__links" id="navLinks">
-      <li><a href="#doctrine">Doctrine</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#pricing">Tiers</a></li>
-      <li><a href="#apply" class="nav__apply">Apply</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero__inner">
-      <div class="hero__rule reveal"></div>
-      <p class="hero__eyebrow reveal">Kosmus Studio — Est. 2025</p>
-      <h1 class="hero__heading reveal">
-        Your presence<br />
-        should match<br />
-        <em>your price.</em>
-      </h1>
-      <p class="hero__sub reveal">
-        We build for financial coaches who have outgrown<br class="br-desk" />
-        what cheap design can do for them.
-      </p>
-      <div class="hero__ctas reveal">
-        <a href="#apply" class="btn btn--gold">Apply for a Diagnosis</a>
-        <a href="#work" class="btn btn--ghost">See the Work</a>
-      </div>
-    </div>
-    <div class="hero__scroll reveal">
-      <div class="hero__scroll-line"></div>
-      <span>Scroll</span>
-    </div>
-  </section>
-
-  <!-- DOCTRINE -->
-  <section class="doctrine section" id="doctrine">
-    <div class="container">
-      <div class="doctrine__header">
-        <p class="label reveal">The Doctrine</p>
-        <h2 class="section__heading reveal">
-          What we believe<br /><em>about this work.</em>
-        </h2>
-      </div>
-      <div class="doctrine__grid">
-        <div class="doctrine__card reveal">
-          <div class="doctrine__num">I</div>
-          <p class="doctrine__text">"Premium prices require premium presence. The two cannot be separated."</p>
-        </div>
-        <div class="doctrine__card reveal">
-          <div class="doctrine__num">II</div>
-          <p class="doctrine__text">"Your site is not a brochure. It is the sales conversation that happens before you are in the room."</p>
-        </div>
-        <div class="doctrine__card reveal">
-          <div class="doctrine__num">III</div>
-          <p class="doctrine__text">"Design is not decoration. It is the silent signal that tells a client whether you are worth what you charge."</p>
-        </div>
-        <div class="doctrine__card reveal">
-          <div class="doctrine__num">IV</div>
-          <p class="doctrine__text">"Cheap design does not save money. It costs clients."</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section class="work section" id="work">
-    <div class="container">
-      <div class="work__header">
-        <p class="label reveal">Selected Work</p>
-        <h2 class="section__heading reveal">
-          The standard we hold<br /><em>every project to.</em>
-        </h2>
-        <p class="work__note reveal">Concept work built to demonstrate capability. Every piece is built to the same standard as a live client engagement.</p>
-      </div>
-
-      <div class="work__grid">
-
-        <!-- PROJECT 1 -->
-        <div class="work__item reveal">
-          <div class="work__image-wrap">
-            <div class="work__image work__image--1"></div>
-            <div class="work__overlay">
-              <a href="https://elise.kosmus.agency/" class="work__link" target="_blank" rel="noopener">
-                View Project
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-white overflow-x-hidden">
+<div class="grain-overlay"></div>
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-[#F5F0E8]/90 backdrop-blur-md dark:bg-[#0C0A07]/90 border-b border-[#D6CAB0]/40">
+<nav class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+<div class="font-serif text-xl tracking-[0.3em] text-[#0C0A07] dark:text-[#F5F0E8] first-letter:text-[#B8912A]">
+                KOSMUS
             </div>
-          </div>
-          <div class="work__meta">
-            <div class="work__meta-left">
-              <p class="work__client">Elise Hartwell Coaching</p>
-              <p class="work__type">Financial Coaching · Concept</p>
+<div class="hidden md:flex items-center gap-10">
+<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif Cormorant Garamond tracking-tight hover:tracking-widest" href="#work">Work</a>
+<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif Cormorant Garamond tracking-tight hover:tracking-widest" href="#process">Process</a>
+<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif Cormorant Garamond tracking-tight hover:tracking-widest" href="#pricing">Pricing</a>
+<a class="bg-primary-container text-on-primary px-6 py-2 rounded shadow-sm hover:opacity-90 hover:shadow-lg transition-all duration-500 font-serif Cormorant Garamond tracking-tight" href="#apply">Apply</a>
+</div>
+<button class="md:hidden text-secondary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</nav>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="min-h-screen bg-[#0C0A07] text-[#F5F0E8] flex flex-col justify-center items-start px-8 md:px-24 overflow-hidden relative pt-40">
+<div class="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary-container/10 to-transparent pointer-events-none"></div>
+<div class="max-w-4xl relative z-10">
+<h1 class="text-5xl md:text-8xl font-headline font-bold leading-tight tracking-tight mb-8 reveal stagger-1">
+                    Your presence should match <span class="italic text-[#B8912A]">your price.</span>
+</h1>
+<p class="text-xl md:text-2xl text-surface-variant font-light mb-12 max-w-2xl leading-relaxed reveal stagger-2">
+                    We build for financial coaches who have outgrown what cheap design can do for them.
+                </p>
+<div class="flex flex-col sm:flex-row gap-6 reveal stagger-3">
+<a class="px-8 py-4 bg-gradient-to-br from-[#B8912A] to-[#D4B057] text-[#0C0A07] font-bold text-lg rounded-sm text-center btn-luxury hover:from-[#D4B057] hover:to-[#B8912A]" href="#apply">
+                        Apply for a Diagnosis
+                    </a>
+<a class="px-8 py-4 border border-[#D6CAB0]/40 text-[#F5F0E8] font-medium text-lg rounded-sm hover:bg-[#F5F0E8]/5 transition-all duration-500 text-center btn-luxury" href="#work">
+                        See the Work
+                    </a>
+</div>
+</div>
+</div>
+</section>
+<!-- Doctrine Section -->
+<section class="py-32 bg-[#F5F0E8] px-8 md:px-24">
+<div class="max-w-6xl mx-auto space-y-32">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="border-l border-[#B8912A] pl-8 reveal">
+<span class="text-[#B8912A] font-medium tracking-widest text-sm block mb-4 uppercase">Belief 01</span>
+<blockquote class="text-4xl md:text-5xl font-headline italic leading-snug text-[#0C0A07]">
+                            "Luxury is the absence of unnecessary friction."
+                        </blockquote>
+</div>
+<div class="hidden md:block">
+<div class="h-px bg-[#D6CAB0]/40 w-full draw-rule"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center flex-row-reverse">
+<div class="hidden md:block order-last">
+<div class="h-px bg-[#D6CAB0]/40 w-full draw-rule"></div>
+</div>
+<div class="border-l border-[#B8912A] pl-8 reveal">
+<span class="text-[#B8912A] font-medium tracking-widest text-sm block mb-4 uppercase">Belief 02</span>
+<blockquote class="text-4xl md:text-5xl font-headline italic leading-snug text-[#0C0A07]">
+                            "Credibility is lost in the details, or won in them."
+                        </blockquote>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="border-l border-[#B8912A] pl-8 reveal">
+<span class="text-[#B8912A] font-medium tracking-widest text-sm block mb-4 uppercase">Belief 03</span>
+<blockquote class="text-4xl md:text-5xl font-headline italic leading-snug text-[#0C0A07]">
+                            "The grid is a suggestion; intent is the law."
+                        </blockquote>
+</div>
+<div class="hidden md:block">
+<div class="h-px bg-[#D6CAB0]/40 w-full draw-rule"></div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+<div class="hidden md:block order-last">
+<div class="h-px bg-[#D6CAB0]/40 w-full draw-rule"></div>
+</div>
+<div class="border-l border-[#B8912A] pl-8 reveal">
+<span class="text-[#B8912A] font-medium tracking-widest text-sm block mb-4 uppercase">Belief 04</span>
+<blockquote class="text-4xl md:text-5xl font-headline italic leading-snug text-[#0C0A07]">
+                            "Design should feel built, not rendered."
+                        </blockquote>
+</div>
+</div>
+</div>
+</section>
+<!-- Problem Section -->
+<section class="py-32 bg-[#0C0A07] px-8 md:px-24 overflow-hidden" id="problem-diagnosis">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-4xl md:text-6xl font-headline font-bold text-[#F5F0E8] mb-20 max-w-2xl reveal">
+                    Diagnosis of the <span class="italic text-[#B8912A]">Professional Gap.</span>
+</h2>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Diagnostic Card 1 -->
+<div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 reveal stagger-1">
+<span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.02">01</span>
+<h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Symptom</h3>
+<p class="text-surface-variant mb-12">High-ticket prospects are hesitant. They love your content but "need to think about it" once they see your proposal or site.</p>
+<div class="mt-auto">
+<h4 class="text-[#B8912A] text-xs uppercase tracking-widest mb-2">Root Cause</h4>
+<p class="text-surface-variant font-light">Visual Dissonance. Your expertise says $10k, your interface says $500.</p>
+</div>
+</div>
+<!-- Diagnostic Card 2 -->
+<div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 lg:mt-12 reveal stagger-2">
+<span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.03">02</span>
+<h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Symptom</h3>
+<p class="text-surface-variant mb-12">You spend more time explaining 'how it works' than selling the outcome of your coaching.</p>
+<div class="mt-auto">
+<h4 class="text-[#B8912A] text-xs uppercase tracking-widest mb-2">Root Cause</h4>
+<p class="text-surface-variant font-light">Information Architecture Failure. Chaos instead of a curated path.</p>
+</div>
+</div>
+<!-- Diagnostic Card 3 -->
+<div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 lg:mt-24 reveal stagger-3">
+<span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.04">03</span>
+<h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Cost/Fix</h3>
+<p class="text-surface-variant mb-12">Every lost client is a $24k+ annual revenue hole. The fix isn't a logo; it's a Digital Manor.</p>
+<div class="mt-auto">
+<h4 class="text-[#B8912A] text-xs uppercase tracking-widest mb-2">Resolution</h4>
+<p class="text-surface-variant font-light">Full ecosystem realignment to match your highest possible price point.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Work Section -->
+<section class="py-32 bg-[#F5F0E8] px-8 md:px-24" id="work">
+<div class="max-w-7xl mx-auto">
+<div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
+<h2 class="text-4xl md:text-6xl font-headline font-bold text-[#0C0A07]">
+                        Selected <span class="italic">Archives.</span>
+</h2>
+<p class="text-secondary max-w-sm mb-2">A small sample of environments we've curated for the world's most disciplined financial minds.</p>
+</div>
+<div class="grid grid-cols-1 gap-32">
+<!-- Work Item 1 -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
+<div class="lg:col-span-8 overflow-hidden bg-surface-container relative">
+<div class="absolute inset-0 z-10 flex items-center justify-center work-card-overlay bg-[#0C0A07]/40">
+<span class="text-[#F5F0E8] font-cormorant-sc tracking-[0.3em] border border-[#F5F0E8]/40 px-6 py-3">VIEW PROJECT</span>
+</div>
+<img alt="Luxury financial coaching website design" class="w-full aspect-[16/9] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA951uLnKSllJ6B4BesRue7aETwzEgmhGRXNLGSuWMoE98MRozG4Mj_x-Yn02_I-Z3bOpAVtUW81Zh0q6DiEXQHQbcR17f7R7xMSGn5-Wy3VyBkmxNxAeV1dPnammuq537B1nuZmNzur-tVmSgMMWfwj2w0_XStHFhTcyUHHMhpWrfAQi3qjzqRu9aZMsXg0cwt5Pz3PngdWa_XCL1_mtyBNTWRY6_BH8X8BV8zHVRWw_SuibaFCJw3btZG37JSwOzeFQmPHbUDvw"/>
+</div>
+<div class="lg:col-span-4 flex flex-col justify-center">
+<span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 01</span>
+<h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">The Elise Method</h3>
+<p class="text-secondary leading-relaxed mb-8 reveal stagger-3">Redefining wealth management for high-net-worth female founders through a bespoke editorial digital experience.</p>
+<div class="h-px bg-[#D6CAB0] w-20 draw-rule"></div>
+</div>
+</div>
+<!-- Work Item 2 -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
+<div class="lg:col-span-4 lg:order-1 order-2 flex flex-col justify-center lg:text-right lg:items-end">
+<span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 02</span>
+<h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">Marcus Wealth</h3>
+<p class="text-secondary leading-relaxed mb-8 reveal stagger-3">A dark, commanding interface for a boutique private equity coach who thrives on exclusivity and absolute clarity.</p>
+<div class="h-px bg-[#D6CAB0] w-20 draw-rule"></div>
+</div>
+<div class="lg:col-span-8 lg:order-2 order-1 overflow-hidden bg-surface-container relative">
+<div class="absolute inset-0 z-10 flex items-center justify-center work-card-overlay bg-[#0C0A07]/40">
+<span class="text-[#F5F0E8] font-cormorant-sc tracking-[0.3em] border border-[#F5F0E8]/40 px-6 py-3">VIEW PROJECT</span>
+</div>
+<img alt="Dark luxury wealth coach interface" class="w-full aspect-[16/9] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmZBJJsTcqk72SQ-Pk_gxtMDbI_omzklLQ2QhinP-OtqyVQTcAzLGfDSBYETfhfcJlHA7OBEP1Mq2pVLe3nVsPFv1tF7igZ8yih1xbL5Fb_OhTPu3b0l663oT8IPCkXZxiGuZDsbbxBdh2B2jRZQyH3znlEokAmK11f_QZqO_OwgmyAvr9kF1xteeqwXR1pJb5IXFwkqV0g2CewyAVfTR_Q8L7iZtAjn2i2ny0TUWDyNOI9Z2ITCYhr1DZ9nyD4czo9xeorpGcOQ"/>
+</div>
+</div>
+<!-- Work Item 3 -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
+<div class="lg:col-span-8 overflow-hidden bg-surface-container relative">
+<div class="absolute inset-0 z-10 flex items-center justify-center work-card-overlay bg-[#0C0A07]/40">
+<span class="text-[#F5F0E8] font-cormorant-sc tracking-[0.3em] border border-[#F5F0E8]/40 px-6 py-3">VIEW PROJECT</span>
+</div>
+<img alt="Editorial financial mentor website" class="w-full aspect-[16/9] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsGI6BMmLn_LMXqMaVXOnhn8ZaPeUOqo6Vn497ylBkVLJAUAWlPKtyrr7YwJ6lr91yS5vkgs43zbeX9ah0ke0niEScAJjHGq0G9V5dC37jFsvJwgCZ0QEDU7vQ6vG5ZjAYmNwceW1QNXb8U2lXJ87Mk4HXagsZPeA8z2omToj0CuNWBQ3RB8tOcf52CNjkocI9RmrUZECeRPrqhQ9BXZgp_9tlEVdKpcrpe3qT4E36i4v9hGRiQ5jOUgNsgJbOwJ2tJYJzOlfGqA"/>
+</div>
+<div class="lg:col-span-4 flex flex-col justify-center">
+<span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 03</span>
+<h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">Nadia Mendéz</h3>
+<p class="text-secondary leading-relaxed mb-8 reveal stagger-3">Turning personal brand into institutional authority. Soft tones, sharp edges, and impeccable flow.</p>
+<div class="h-px bg-[#D6CAB0] w-20 draw-rule"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Process Section -->
+<section class="py-32 bg-[#F5F0E8] px-8 md:px-24" id="process">
+<div class="max-w-7xl mx-auto">
+<h2 class="text-4xl md:text-6xl font-headline font-bold text-[#0C0A07] mb-24 reveal">
+                    The <span class="italic text-[#B8912A]">Protocol.</span>
+</h2>
+<div class="grid grid-cols-1 md:grid-cols-5 gap-12 relative">
+<div class="absolute top-12 left-0 w-full h-px bg-[#D6CAB0]/40 hidden md:block draw-rule"></div>
+<div class="relative z-10 reveal stagger-1">
+<div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">1</div>
+<h4 class="font-headline text-xl font-bold mb-4">Diagnosis</h4>
+<p class="text-sm text-secondary leading-relaxed">We strip away the vanity metrics to find where your current design is costing you clients.</p>
+</div>
+<div class="relative z-10 reveal stagger-2">
+<div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">2</div>
+<h4 class="font-headline text-xl font-bold mb-4">Discovery</h4>
+<p class="text-sm text-secondary leading-relaxed">Excavating your unique methodology and translating it into a visual language.</p>
+</div>
+<div class="relative z-10 reveal stagger-3">
+<div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">3</div>
+<h4 class="font-headline text-xl font-bold mb-4">Design</h4>
+<p class="text-sm text-secondary leading-relaxed">Bespoke layouts. Zero templates. An editorial manor built specifically for your voice.</p>
+</div>
+<div class="relative z-10 reveal stagger-1">
+<div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">4</div>
+<h4 class="font-headline text-xl font-bold mb-4">Build</h4>
+<p class="text-sm text-secondary leading-relaxed">Precision execution with seamless transitions and optimized performance.</p>
+</div>
+<div class="relative z-10 reveal stagger-2">
+<div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">5</div>
+<h4 class="font-headline text-xl font-bold mb-4">Launch</h4>
+<p class="text-sm text-secondary leading-relaxed">Handing over the keys to your new digital empire. Order brought to chaos.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Pricing Section -->
+<section class="py-32 bg-[#0C0A07] px-8 md:px-24" id="pricing">
+<div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20">
+<div class="lg:w-1/3 reveal">
+<h2 class="text-4xl md:text-6xl font-headline font-bold text-[#F5F0E8] mb-8">
+                        The <span class="italic text-[#B8912A]">Investment.</span>
+</h2>
+<div class="border-l border-[#B8912A] pl-6 mb-8 reveal stagger-1">
+<p class="text-2xl font-headline italic text-[#F5F0E8]">"$2,000. No exceptions."</p>
+<p class="text-sm text-secondary mt-2">Starting floor for all engagements.</p>
+</div>
+<p class="text-surface-variant leading-relaxed reveal stagger-2">
+                        We don't offer hourly rates or "quick tweaks." We offer transformation. Choose the tier that matches your ambition.
+                    </p>
+</div>
+<div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Tier 1 -->
+<div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-1">
+<h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-4">Essential Manor</h4>
+<p class="text-4xl font-headline text-[#F5F0E8] mb-6">$2,000</p>
+<ul class="text-surface-variant space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Strategic Landing Page</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Brand Refinement</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Copywriting Diagnosis</li>
+</ul>
+<a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
+</div>
+<!-- Tier 2 -->
+<div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-2">
+<h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-4">Elite Presence</h4>
+<p class="text-4xl font-headline text-[#F5F0E8] mb-6">$4,500</p>
+<ul class="text-surface-variant space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Full 5-Page Ecosystem</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Custom Motion Design</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Client Portal UI</li>
+</ul>
+<a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
+</div>
+<!-- Tier 3 -->
+<div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-1">
+<h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-4">Full Sovereignty</h4>
+<p class="text-4xl font-headline text-[#F5F0E8] mb-6">$8,000</p>
+<ul class="text-surface-variant space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Complete Identity Overhaul</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Course Platform Design</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Premium Copy Production</li>
+</ul>
+<a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
+</div>
+<!-- Tier 4 -->
+<div class="bg-[#1A1A1A] p-10 border border-[#B8912A]/40 flex flex-col group shadow-[0_0_20px_rgba(184,145,42,0.1)] reveal stagger-2">
+<h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-4">Studio Retainer</h4>
+<p class="text-4xl font-headline text-[#F5F0E8] mb-6">Custom</p>
+<ul class="text-surface-variant space-y-4 mb-10 flex-grow">
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Dedicated Creative Partner</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Continuous Evolution</li>
+<li class="flex items-center gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A]">check</span> Monthly Market Analysis</li>
+</ul>
+<a class="text-center py-3 bg-gradient-to-br from-[#B8912A] to-[#D4B057] text-[#0C0A07] font-bold btn-luxury" href="#apply">Inquire</a>
+</div>
+</div>
+</div>
+</section>
+<!-- Apply Section -->
+<section class="py-32 bg-[#F5F0E8] px-8 md:px-24 border-t border-[#D6CAB0]/40" id="apply">
+<div class="max-w-4xl mx-auto">
+<div class="text-center mb-20 reveal">
+<span class="font-cormorant-sc text-[#B8912A] tracking-[0.3em] uppercase text-sm block mb-6">Work With Us</span>
+<h2 class="text-5xl md:text-7xl font-headline font-light text-[#0C0A07] mb-8">Not everyone gets in.</h2>
+<p class="text-[#6B5E4A] text-lg max-w-2xl mx-auto leading-relaxed">
+                We work exclusively with financial coaches and consultants who are serious about their online presence. If that is you — apply.
+            </p>
+</div>
+<form class="space-y-8 bg-white/30 p-8 md:p-12 border border-[#D6CAB0]/20 editorial-inset reveal" onsubmit="return false;">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="space-y-2 reveal stagger-1">
+<label class="text-xs uppercase tracking-widest text-secondary font-medium" for="name">Name</label>
+<input class="w-full bg-transparent border-0 border-b border-[#D6CAB0] focus:ring-0 focus:border-[#B8912A] px-0 py-3 text-[#0C0A07] placeholder:text-[#D6CAB0]/60 transition-colors" id="name" placeholder="John Doe" type="text"/>
+</div>
+<div class="space-y-2 reveal stagger-2">
+<label class="text-xs uppercase tracking-widest text-secondary font-medium" for="email">Email</label>
+<input class="w-full bg-transparent border-0 border-b border-[#D6CAB0] focus:ring-0 focus:border-[#B8912A] px-0 py-3 text-[#0C0A07] placeholder:text-[#D6CAB0]/60 transition-colors" id="email" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div class="space-y-2 reveal stagger-1">
+<label class="text-xs uppercase tracking-widest text-secondary font-medium" for="offer">Offer &amp; Price Point</label>
+<input class="w-full bg-transparent border-0 border-b border-[#D6CAB0] focus:ring-0 focus:border-[#B8912A] px-0 py-3 text-[#0C0A07] placeholder:text-[#D6CAB0]/60 transition-colors" id="offer" placeholder="e.g. $10k Premium Coaching" type="text"/>
+</div>
+<div class="space-y-2 reveal stagger-2">
+<label class="text-xs uppercase tracking-widest text-secondary font-medium" for="problem">The Problem</label>
+<textarea class="w-full bg-transparent border-0 border-b border-[#D6CAB0] focus:ring-0 focus:border-[#B8912A] px-0 py-3 text-[#0C0A07] placeholder:text-[#D6CAB0]/60 min-h-[120px] resize-none transition-colors" id="problem" placeholder="What is currently preventing you from reaching your next revenue tier?"></textarea>
+</div>
+<div class="pt-8 text-center">
+<button class="w-full md:w-auto px-16 py-6 bg-[#0C0A07] text-[#B8912A] text-lg font-cormorant-sc tracking-[0.2em] font-bold hover:bg-[#1A1A1A] transition-all rounded-none btn-luxury">
+                    APPLY FOR A DIAGNOSIS
+                </button>
+<p class="mt-6 text-[#A8997F] text-sm font-body reveal">Applications reviewed within 48 hours.</p>
+</div>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#1A1A1A] dark:bg-[#0C0A07] border-t border-[#B8912A]/20">
+<div class="flex flex-col items-center gap-8 py-16 w-full text-center max-w-screen-2xl mx-auto px-8">
+<div class="font-serif text-2xl tracking-[0.3em] text-[#F5F0E8] first-letter:text-[#B8912A] reveal">
+                KOSMUS
             </div>
-            <span class="work__tag">Spec Work</span>
-          </div>
-        </div>
+<blockquote class="max-w-md mx-auto text-[#D6CAB0] font-serif Cormorant Garamond italic text-lg leading-relaxed reveal">
+                "Order brought to chaos. Presence brought to power."
+            </blockquote>
+<div class="flex flex-wrap justify-center gap-8 md:gap-12 text-[#D6CAB0] font-serif Cormorant Garamond tracking-normal reveal">
+<a class="hover:text-[#B8912A] transition-colors" href="#work">Work</a>
+<a class="hover:text-[#B8912A] transition-colors" href="#process">Process</a>
+<a class="hover:text-[#B8912A] transition-colors" href="#pricing">Pricing</a>
+<a class="hover:text-[#B8912A] transition-colors" href="#apply">Apply</a>
+</div>
+<div class="pt-8 border-t border-[#D6CAB0]/10 w-full flex flex-col md:flex-row justify-between items-center gap-4 reveal">
+<p class="text-[#6B5E4A] text-xs tracking-widest">© Kosmus Studio. Order brought to chaos.</p>
+<p class="text-[#6B5E4A] text-xs tracking-widest uppercase">Curated in Europe</p>
+<div class="flex gap-4">
+<span class="text-[#B8912A] text-xs tracking-[0.2em]">KOSMUS.STUDIO</span>
+</div>
+</div>
+</div>
+</footer>
+<script>
+    // Initialize Intersection Observer for reveals and drawing rules
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
 
-        <!-- PROJECT 2 — placeholder for next spec -->
-        <div class="work__item reveal">
-          <div class="work__image-wrap">
-            <div class="work__image work__image--2"></div>
-            <div class="work__overlay">
-              <a href="https://marcus.kosmus.agency/" class="work__link" target="_blank" rel="noopener">
-                View Project
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </div>
-          <div class="work__meta">
-            <div class="work__meta-left">
-              <p class="work__client">Marcus Velde Consulting</p>
-              <p class="work__type">Business Consulting · Concept</p>
-            </div>
-            <span class="work__tag">Spec Work</span>
-          </div>
-        </div>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Optional: Stop observing after animation triggers
+                // observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
 
-        <!-- PROJECT 3 — placeholder -->
-        <div class="work__item reveal">
-          <div class="work__image-wrap">
-            <div class="work__image work__image--3"></div>
-            <div class="work__overlay">
-              <a href="https://nadia.kosmus.agency/" class="work__link" target="_blank" rel="noopener">
-                View Project
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 12L12 2M12 2H5M12 2v7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </a>
-            </div>
-          </div>
-          <div class="work__meta">
-            <div class="work__meta-left">
-              <p class="work__client">Nadia Osei Wealth</p>
-              <p class="work__type">Wealth Coach · Concept</p>
-            </div>
-            <span class="work__tag">Spec Work</span>
-          </div>
-        </div>
+    // Apply observer to elements
+    document.querySelectorAll('.reveal, .draw-rule').forEach(el => observer.observe(el));
 
-      </div>
+    // Parallax Effect
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        document.querySelectorAll('.parallax-text').forEach(el => {
+            const speed = el.getAttribute('data-speed') || 0.05;
+            el.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+    });
 
-      <div class="work__footer reveal">
-        <p>More work added as engagements complete. <a href="#apply">Apply to be next.</a></p>
-      </div>
-    </div>
-  </section>
+    // Elegant scroll behavior for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 
-  <!-- PROBLEM -->
-  <section class="problem section" id="problem">
-    <div class="container">
-      <p class="label reveal">The Diagnosis</p>
-      <h2 class="section__heading reveal">
-        The problem most coaches<br /><em>refuse to name.</em>
-      </h2>
-      <div class="problem__grid">
-        <div class="problem__card reveal">
-          <div class="problem__icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#B8912A" stroke-width="1"/><path d="M14 8v7l4 2" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round"/></svg>
-          </div>
-          <h3>The Symptom</h3>
-          <p>You have a £5,000 offer and a £200 website. Clients feel the gap before they read a word. They leave without enquiring.</p>
-        </div>
-        <div class="problem__card reveal">
-          <div class="problem__icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#B8912A" stroke-width="1"/><path d="M9 14h10M14 9l5 5-5 5" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-          <h3>The Root Cause</h3>
-          <p>The market taught coaches that websites cost $200. So coaches built $200 sites and wondered why premium clients didn't trust them.</p>
-        </div>
-        <div class="problem__card reveal">
-          <div class="problem__icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><circle cx="14" cy="14" r="13" stroke="#B8912A" stroke-width="1"/><line x1="14" y1="9" x2="14" y2="15" stroke="#B8912A" stroke-width="1.2" stroke-linecap="round"/><circle cx="14" cy="18" r="1" fill="#B8912A"/></svg>
-          </div>
-          <h3>The Cost</h3>
-          <p>Every week your site underperforms your offer, you are paying with leads, with trust, and with revenue you will never see.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROCESS -->
-  <section class="process section" id="process">
-    <div class="container">
-      <div class="process__header">
-        <p class="label reveal">How It Works</p>
-        <h2 class="section__heading reveal">
-          Five steps from<br /><em>diagnosis to live.</em>
-        </h2>
-      </div>
-      <div class="process__steps">
-        <div class="process__step reveal">
-          <div class="process__step-num">01</div>
-          <div class="process__step-body">
-            <h3>Application</h3>
-            <p>You complete a short diagnostic form. We assess fit. We only work with coaches whose offer is ready to match the presence we build.</p>
-          </div>
-        </div>
-        <div class="process__step reveal">
-          <div class="process__step-num">02</div>
-          <div class="process__step-body">
-            <h3>Diagnosis Call</h3>
-            <p>A focused 45-minute session. We audit your current presence, your offer, and your client. We deliver a frank assessment — no flattery.</p>
-          </div>
-        </div>
-        <div class="process__step reveal">
-          <div class="process__step-num">03</div>
-          <div class="process__step-body">
-            <h3>Prescription Delivered</h3>
-            <p>A written brief outlining exactly what your site needs to do, what it must say, and how it must feel. This is the strategic foundation everything is built on.</p>
-          </div>
-        </div>
-        <div class="process__step reveal">
-          <div class="process__step-num">04</div>
-          <div class="process__step-body">
-            <h3>Build & Refine</h3>
-            <p>We design and build. You review via Loom walkthroughs — clear, async, no unnecessary calls. Two revision rounds included at every tier.</p>
-          </div>
-        </div>
-        <div class="process__step reveal">
-          <div class="process__step-num">05</div>
-          <div class="process__step-body">
-            <h3>Live & Retained</h3>
-            <p>Your site launches. For retainer clients, the relationship continues — monthly updates, performance reviews, and strategic counsel on demand.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PRICING -->
-  <section class="pricing section" id="pricing">
-    <div class="container">
-      <div class="pricing__header">
-        <p class="label reveal">The Tiers</p>
-        <h2 class="section__heading reveal">
-          Four levels of engagement.<br /><em>One floor: $2,000.</em>
-        </h2>
-        <p class="pricing__note reveal">No discounts. No exceptions. The floor exists because below it, the work cannot be done properly.</p>
-      </div>
-
-      <div class="pricing__grid">
-
-        <!-- TIER 1 -->
-        <div class="pricing__card reveal">
-          <div class="pricing__card-header">
-            <p class="pricing__tier-label">Tier I</p>
-            <h3 class="pricing__tier-name">The Diagnosis</h3>
-            <div class="pricing__price">
-              <span class="pricing__currency">$</span>2,000
-            </div>
-            <p class="pricing__cadence">One-time</p>
-          </div>
-          <ul class="pricing__features">
-            <li>Full site audit and written prescription</li>
-            <li>Competitive positioning analysis</li>
-            <li>Copy and conversion review</li>
-            <li>Loom walkthrough of every finding</li>
-            <li>Action roadmap delivered within 7 days</li>
-          </ul>
-          <a href="#apply" class="btn btn--outline">Apply</a>
-        </div>
-
-        <!-- TIER 2 -->
-        <div class="pricing__card reveal">
-          <div class="pricing__card-header">
-            <p class="pricing__tier-label">Tier II</p>
-            <h3 class="pricing__tier-name">The Prescription</h3>
-            <div class="pricing__price">
-              <span class="pricing__currency">$</span>4,500
-            </div>
-            <p class="pricing__cadence">One-time</p>
-          </div>
-          <ul class="pricing__features">
-            <li>Custom single or multi-page site</li>
-            <li>Brand alignment and visual identity</li>
-            <li>Conversion-led copy framework</li>
-            <li>Mobile-first, performance optimised</li>
-            <li>Two revision rounds</li>
-            <li>30-day post-launch support</li>
-          </ul>
-          <a href="#apply" class="btn btn--outline">Apply</a>
-        </div>
-
-        <!-- TIER 3 — FEATURED -->
-        <div class="pricing__card pricing__card--featured reveal">
-          <div class="pricing__featured-badge">Most Chosen</div>
-          <div class="pricing__card-header">
-            <p class="pricing__tier-label">Tier III</p>
-            <h3 class="pricing__tier-name">The Practice</h3>
-            <div class="pricing__price">
-              <span class="pricing__currency">$</span>1,500
-              <span class="pricing__price-range">– $2,500</span>
-            </div>
-            <p class="pricing__cadence">Per month · Retainer</p>
-          </div>
-          <ul class="pricing__features">
-            <li>Everything in Tier II</li>
-            <li>Monthly site updates and optimisation</li>
-            <li>Ongoing conversion rate improvements</li>
-            <li>Monthly performance Loom report</li>
-            <li>Priority response within 24 hours</li>
-            <li>Quarterly strategy review session</li>
-            <li>Kosmus ecosystem hosting included</li>
-          </ul>
-          <a href="#apply" class="btn btn--gold">Apply for Retainer</a>
-        </div>
-
-        <!-- TIER 4 -->
-        <div class="pricing__card reveal">
-          <div class="pricing__card-header">
-            <p class="pricing__tier-label">Tier IV</p>
-            <h3 class="pricing__tier-name">The Full Practice Build</h3>
-            <div class="pricing__price">
-              <span class="pricing__currency">$</span>9,500
-              <span class="pricing__price-range">– $15,000</span>
-            </div>
-            <p class="pricing__cadence">One-time · Retainer eligible</p>
-          </div>
-          <ul class="pricing__features">
-            <li>Complete brand and web presence build</li>
-            <li>Multi-page site architecture</li>
-            <li>Sales funnel and lead capture system</li>
-            <li>Full copy and positioning strategy</li>
-            <li>Custom integrations and automations</li>
-            <li>90-day post-launch retainer included</li>
-            <li>Dedicated account management</li>
-          </ul>
-          <a href="#apply" class="btn btn--outline">Apply</a>
-        </div>
-
-      </div>
-
-      <div class="pricing__floor reveal">
-        <p>"The floor is $2,000. It is not negotiable. It is the minimum at which the work can be done with integrity."</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- APPLY -->
-  <section class="apply section" id="apply">
-    <div class="container apply__inner">
-      <div class="apply__text">
-        <p class="label reveal">Begin</p>
-        <h2 class="section__heading reveal">
-          Order brought<br /><em>to chaos.</em>
-        </h2>
-        <p class="body-text reveal">
-          The application takes five minutes. We review every submission personally and respond within 48 hours. We accept clients selectively — not every application proceeds.
-        </p>
-        <div class="apply__doctrine reveal">
-          <p>"Your site is the sales conversation that happens before you are in the room. It should be doing work while you sleep."</p>
-        </div>
-      </div>
-      <div class="apply__form-wrap reveal">
-        <form class="apply__form" id="applyForm" novalidate>
-          <div class="form__group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required />
-          </div>
-          <div class="form__group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="your@email.com" required />
-          </div>
-          <div class="form__group">
-            <label for="offer">Your Offer & Price Point</label>
-            <input type="text" id="offer" name="offer" placeholder="e.g. 6-month coaching, $5,000" required />
-          </div>
-          <div class="form__group">
-            <label for="tier">Tier of Interest</label>
-            <select id="tier" name="tier" required>
-              <option value="" disabled selected>Select a tier</option>
-              <option>Tier I — The Diagnosis ($2,000)</option>
-              <option>Tier II — The Prescription ($4,500)</option>
-              <option>Tier III — The Practice (Retainer)</option>
-              <option>Tier IV — The Full Practice Build</option>
-            </select>
-          </div>
-          <div class="form__group">
-            <label for="problem">What is your current site failing to do?</label>
-            <textarea id="problem" name="problem" rows="4" placeholder="Be specific. The more honest, the better the diagnosis." required></textarea>
-          </div>
-          <button type="submit" class="btn btn--gold btn--full">Submit Application</button>
-          <p class="form__note">Applications reviewed personally. Response within 48 hours.</p>
-        </form>
-        <div class="form__success" id="formSuccess">
-          <div class="form__success-rule"></div>
-          <p class="form__success-label">Received.</p>
-          <h3>Your application is with us.</h3>
-          <p>We will review it personally and respond within 48 hours. If there is strong fit, we will be in touch directly.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container footer__inner">
-      <div class="footer__top">
-        <p class="footer__logo">
-          <span class="footer__logo-k">K</span><span class="footer__logo-rest">OSMUS</span>
-        </p>
-        <p class="footer__tagline">Order brought to chaos.</p>
-      </div>
-      <div class="footer__mid">
-        <nav class="footer__nav">
-          <a href="#doctrine">Doctrine</a>
-          <a href="#problem">The Problem</a>
-          <a href="#process">Process</a>
-          <a href="#pricing">Tiers</a>
-          <a href="#apply">Apply</a>
-        </nav>
-      </div>
-      <div class="footer__bottom">
-        <p class="footer__quote">"Premium prices require premium presence. The two cannot be separated."</p>
-        <p class="footer__legal">© 2025 Kosmus Studio. All rights reserved. · kosmusstudio.com</p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+    // Form interactivity
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('focus', () => {
+            input.parentElement.classList.add('border-primary');
+        });
+        input.addEventListener('blur', () => {
+            input.parentElement.classList.remove('border-primary');
+        });
+    });
+</script>
+</body></html>
