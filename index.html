@@ -58,14 +58,70 @@
             transition: transform 0.1s linear;
         }
 
+        /* ── Portfolio card hover ── */
         .work-card-overlay {
             opacity: 0;
-            backdrop-filter: blur(0px);
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .work-card:hover .work-card-overlay {
             opacity: 1;
-            backdrop-filter: blur(8px);
+        }
+
+        /* Screenshot thumbnail styles */
+        .portfolio-thumb {
+            position: relative;
+            overflow: hidden;
+            background: #1A1A1A;
+        }
+
+        .portfolio-thumb img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+            transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .work-card:hover .portfolio-thumb img {
+            transform: scale(1.05);
+        }
+
+        /* Fallback placeholder when image loading */
+        .portfolio-thumb .thumb-fallback {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #0C0A07;
+            gap: 1rem;
+        }
+
+        .portfolio-thumb .thumb-fallback .site-name {
+            font-family: 'Cormorant SC', serif;
+            font-size: 1.5rem;
+            letter-spacing: 0.3em;
+            color: #B8912A;
+        }
+
+        .portfolio-thumb .thumb-fallback .site-url {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: #6B5E4A;
+            text-transform: uppercase;
+        }
+
+        /* Gold rule on card overlay */
+        .view-label {
+            font-family: 'Cormorant SC', serif;
+            letter-spacing: 0.3em;
+            border: 1px solid rgba(245,240,232,0.4);
+            padding: 0.6rem 1.5rem;
+            color: #F5F0E8;
+            font-size: 0.75rem;
         }
 
         .stagger-1 { transition-delay: 0.1s; }
@@ -144,6 +200,7 @@
 </head>
 <body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-white overflow-x-hidden">
 <div class="grain-overlay"></div>
+
 <!-- TopNavBar -->
 <header class="fixed top-0 left-0 w-full z-50 bg-[#F5F0E8]/90 backdrop-blur-md dark:bg-[#0C0A07]/90 border-b border-[#D6CAB0]/40">
 <nav class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
@@ -161,6 +218,7 @@
 </button>
 </nav>
 </header>
+
 <main>
 <!-- Hero Section -->
 <section class="min-h-screen bg-[#0C0A07] text-[#F5F0E8] flex flex-col justify-center items-start px-8 md:px-24 overflow-hidden relative pt-40">
@@ -183,6 +241,7 @@
 </div>
 </div>
 </section>
+
 <!-- Doctrine Section -->
 <section class="py-32 bg-[#F5F0E8] px-8 md:px-24">
 <div class="max-w-6xl mx-auto space-y-32">
@@ -232,6 +291,7 @@
 </div>
 </div>
 </section>
+
 <!-- Problem Section -->
 <section class="py-32 bg-[#0C0A07] px-8 md:px-24 overflow-hidden" id="problem-diagnosis">
 <div class="max-w-7xl mx-auto">
@@ -239,7 +299,6 @@
                     Diagnosis of the <span class="italic text-[#B8912A]">Professional Gap.</span>
 </h2>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-<!-- Diagnostic Card 1 -->
 <div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 reveal stagger-1">
 <span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.02">01</span>
 <h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Symptom</h3>
@@ -249,7 +308,6 @@
 <p class="text-surface-variant font-light">Visual Dissonance. Your expertise says $10k, your interface says $500.</p>
 </div>
 </div>
-<!-- Diagnostic Card 2 -->
 <div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 lg:mt-12 reveal stagger-2">
 <span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.03">02</span>
 <h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Symptom</h3>
@@ -259,7 +317,6 @@
 <p class="text-surface-variant font-light">Information Architecture Failure. Chaos instead of a curated path.</p>
 </div>
 </div>
-<!-- Diagnostic Card 3 -->
 <div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 lg:mt-24 reveal stagger-3">
 <span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.04">03</span>
 <h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Cost/Fix</h3>
@@ -272,64 +329,134 @@
 </div>
 </div>
 </section>
-<!-- Work Section -->
+
+<!-- ═══════════════════════════════════════
+     WORK SECTION — updated with live thumbnails + links
+════════════════════════════════════════ -->
 <section class="py-32 bg-[#F5F0E8] px-8 md:px-24" id="work">
 <div class="max-w-7xl mx-auto">
-<div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
-<h2 class="text-4xl md:text-6xl font-headline font-bold text-[#0C0A07]">
-                        Selected <span class="italic">Archives.</span>
-</h2>
-<p class="text-secondary max-w-sm mb-2">A small sample of environments we've curated for the world's most disciplined financial minds.</p>
-</div>
-<div class="grid grid-cols-1 gap-32">
-<!-- Work Item 1 -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
-<div class="lg:col-span-8 overflow-hidden bg-surface-container relative">
-<div class="absolute inset-0 z-10 flex items-center justify-center work-card-overlay bg-[#0C0A07]/40">
-<span class="text-[#F5F0E8] font-cormorant-sc tracking-[0.3em] border border-[#F5F0E8]/40 px-6 py-3">VIEW PROJECT</span>
-</div>
-<img alt="Luxury financial coaching website design" class="w-full aspect-[16/9] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA951uLnKSllJ6B4BesRue7aETwzEgmhGRXNLGSuWMoE98MRozG4Mj_x-Yn02_I-Z3bOpAVtUW81Zh0q6DiEXQHQbcR17f7R7xMSGn5-Wy3VyBkmxNxAeV1dPnammuq537B1nuZmNzur-tVmSgMMWfwj2w0_XStHFhTcyUHHMhpWrfAQi3qjzqRu9aZMsXg0cwt5Pz3PngdWa_XCL1_mtyBNTWRY6_BH8X8BV8zHVRWw_SuibaFCJw3btZG37JSwOzeFQmPHbUDvw"/>
-</div>
-<div class="lg:col-span-4 flex flex-col justify-center">
-<span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 01</span>
-<h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">The Elise Method</h3>
-<p class="text-secondary leading-relaxed mb-8 reveal stagger-3">Redefining wealth management for high-net-worth female founders through a bespoke editorial digital experience.</p>
-<div class="h-px bg-[#D6CAB0] w-20 draw-rule"></div>
-</div>
-</div>
-<!-- Work Item 2 -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
-<div class="lg:col-span-4 lg:order-1 order-2 flex flex-col justify-center lg:text-right lg:items-end">
-<span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 02</span>
-<h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">Marcus Wealth</h3>
-<p class="text-secondary leading-relaxed mb-8 reveal stagger-3">A dark, commanding interface for a boutique private equity coach who thrives on exclusivity and absolute clarity.</p>
-<div class="h-px bg-[#D6CAB0] w-20 draw-rule"></div>
-</div>
-<div class="lg:col-span-8 lg:order-2 order-1 overflow-hidden bg-surface-container relative">
-<div class="absolute inset-0 z-10 flex items-center justify-center work-card-overlay bg-[#0C0A07]/40">
-<span class="text-[#F5F0E8] font-cormorant-sc tracking-[0.3em] border border-[#F5F0E8]/40 px-6 py-3">VIEW PROJECT</span>
-</div>
-<img alt="Dark luxury wealth coach interface" class="w-full aspect-[16/9] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmZBJJsTcqk72SQ-Pk_gxtMDbI_omzklLQ2QhinP-OtqyVQTcAzLGfDSBYETfhfcJlHA7OBEP1Mq2pVLe3nVsPFv1tF7igZ8yih1xbL5Fb_OhTPu3b0l663oT8IPCkXZxiGuZDsbbxBdh2B2jRZQyH3znlEokAmK11f_QZqO_OwgmyAvr9kF1xteeqwXR1pJb5IXFwkqV0g2CewyAVfTR_Q8L7iZtAjn2i2ny0TUWDyNOI9Z2ITCYhr1DZ9nyD4czo9xeorpGcOQ"/>
-</div>
-</div>
-<!-- Work Item 3 -->
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
-<div class="lg:col-span-8 overflow-hidden bg-surface-container relative">
-<div class="absolute inset-0 z-10 flex items-center justify-center work-card-overlay bg-[#0C0A07]/40">
-<span class="text-[#F5F0E8] font-cormorant-sc tracking-[0.3em] border border-[#F5F0E8]/40 px-6 py-3">VIEW PROJECT</span>
-</div>
-<img alt="Editorial financial mentor website" class="w-full aspect-[16/9] object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsGI6BMmLn_LMXqMaVXOnhn8ZaPeUOqo6Vn497ylBkVLJAUAWlPKtyrr7YwJ6lr91yS5vkgs43zbeX9ah0ke0niEScAJjHGq0G9V5dC37jFsvJwgCZ0QEDU7vQ6vG5ZjAYmNwceW1QNXb8U2lXJ87Mk4HXagsZPeA8z2omToj0CuNWBQ3RB8tOcf52CNjkocI9RmrUZECeRPrqhQ9BXZgp_9tlEVdKpcrpe3qT4E36i4v9hGRiQ5jOUgNsgJbOwJ2tJYJzOlfGqA"/>
-</div>
-<div class="lg:col-span-4 flex flex-col justify-center">
-<span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 03</span>
-<h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">Nadia Mendéz</h3>
-<p class="text-secondary leading-relaxed mb-8 reveal stagger-3">Turning personal brand into institutional authority. Soft tones, sharp edges, and impeccable flow.</p>
-<div class="h-px bg-[#D6CAB0] w-20 draw-rule"></div>
-</div>
-</div>
-</div>
+
+  <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
+    <h2 class="text-4xl md:text-6xl font-headline font-bold text-[#0C0A07]">
+      Selected <span class="italic">Archives.</span>
+    </h2>
+    <p class="text-secondary max-w-sm mb-2">A small sample of environments we've curated for the world's most disciplined financial minds.</p>
+  </div>
+
+  <div class="grid grid-cols-1 gap-32">
+
+    <!-- Work Item 1 — Elise -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
+      <a href="https://elise.kosmus.agency/" target="_blank" rel="noopener noreferrer"
+         class="lg:col-span-8 portfolio-thumb block">
+        <!-- Live screenshot via screenshotone API (no key needed for basic) -->
+        <img
+          src="https://api.screenshotone.com/take?url=https%3A%2F%2Felise.kosmus.agency%2F&viewport_width=1280&viewport_height=720&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=2&timeout=60"
+          alt="Elise Method — luxury financial coaching website"
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <!-- Fallback if screenshot service unavailable -->
+        <div class="thumb-fallback" style="display:none; aspect-ratio:16/9; position:relative;">
+          <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
+            <div class="site-name">The Elise Method</div>
+            <div class="site-url">elise.kosmus.agency</div>
+            <div style="width:2rem;height:1px;background:#B8912A;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;color:#6B5E4A;text-transform:uppercase;">Click to visit →</div>
+          </div>
+        </div>
+        <!-- Hover overlay -->
+        <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
+          <span class="view-label">VIEW PROJECT</span>
+        </div>
+      </a>
+      <div class="lg:col-span-4 flex flex-col justify-center">
+        <span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 01</span>
+        <h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">The Elise Method</h3>
+        <p class="text-secondary leading-relaxed mb-8 reveal stagger-3">Redefining wealth management for high-net-worth female founders through a bespoke editorial digital experience.</p>
+        <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6"></div>
+        <a href="https://elise.kosmus.agency/" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300">
+          View Live Site
+          <span style="font-size:1rem;">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Work Item 2 — Marcus -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
+      <div class="lg:col-span-4 lg:order-1 order-2 flex flex-col justify-center lg:text-right lg:items-end">
+        <span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 02</span>
+        <h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">Marcus Wealth</h3>
+        <p class="text-secondary leading-relaxed mb-8 reveal stagger-3">A dark, commanding interface for a boutique private equity coach who thrives on exclusivity and absolute clarity.</p>
+        <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6 lg:ml-auto"></div>
+        <a href="https://marcus.kosmus.agency/" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300 lg:justify-end">
+          View Live Site
+          <span style="font-size:1rem;">→</span>
+        </a>
+      </div>
+      <a href="https://marcus.kosmus.agency/" target="_blank" rel="noopener noreferrer"
+         class="lg:col-span-8 lg:order-2 order-1 portfolio-thumb block">
+        <img
+          src="https://api.screenshotone.com/take?url=https%3A%2F%2Fmarcus.kosmus.agency%2F&viewport_width=1280&viewport_height=720&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=2&timeout=60"
+          alt="Marcus Wealth — dark luxury private equity coach website"
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="thumb-fallback" style="display:none; aspect-ratio:16/9; position:relative;">
+          <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
+            <div class="site-name">Marcus Wealth</div>
+            <div class="site-url">marcus.kosmus.agency</div>
+            <div style="width:2rem;height:1px;background:#B8912A;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;color:#6B5E4A;text-transform:uppercase;">Click to visit →</div>
+          </div>
+        </div>
+        <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
+          <span class="view-label">VIEW PROJECT</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- Work Item 3 — Nadia -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
+      <a href="https://nadia.kosmus.agency/" target="_blank" rel="noopener noreferrer"
+         class="lg:col-span-8 portfolio-thumb block">
+        <img
+          src="https://api.screenshotone.com/take?url=https%3A%2F%2Fnadia.kosmus.agency%2F&viewport_width=1280&viewport_height=720&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=2&timeout=60"
+          alt="Nadia Mendéz — editorial financial mentor website"
+          loading="lazy"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="thumb-fallback" style="display:none; aspect-ratio:16/9; position:relative;">
+          <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
+            <div class="site-name">Nadia Mendéz</div>
+            <div class="site-url">nadia.kosmus.agency</div>
+            <div style="width:2rem;height:1px;background:#B8912A;"></div>
+            <div style="font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;color:#6B5E4A;text-transform:uppercase;">Click to visit →</div>
+          </div>
+        </div>
+        <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
+          <span class="view-label">VIEW PROJECT</span>
+        </div>
+      </a>
+      <div class="lg:col-span-4 flex flex-col justify-center">
+        <span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 03</span>
+        <h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">Nadia Mendéz</h3>
+        <p class="text-secondary leading-relaxed mb-8 reveal stagger-3">Turning personal brand into institutional authority. Soft tones, sharp edges, and impeccable flow.</p>
+        <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6"></div>
+        <a href="https://nadia.kosmus.agency/" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300">
+          View Live Site
+          <span style="font-size:1rem;">→</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
 </div>
 </section>
+
 <!-- Process Section -->
 <section class="py-32 bg-[#F5F0E8] px-8 md:px-24" id="process">
 <div class="max-w-7xl mx-auto">
@@ -366,6 +493,7 @@
 </div>
 </div>
 </section>
+
 <!-- Pricing Section -->
 <section class="py-32 bg-[#0C0A07] px-8 md:px-24" id="pricing">
 <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20">
@@ -385,7 +513,6 @@
                     </p>
 </div>
 <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
-<!-- Tier 1 — The Diagnosis -->
 <div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-1">
 <h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-1">Tier 01</h4>
 <p class="text-[#F5F0E8] font-headline text-xl italic mb-4">The Diagnosis</p>
@@ -400,7 +527,6 @@
 <p class="text-xs text-surface-variant italic mb-6">For early-stage coaches who need a professional presence fast.</p>
 <a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
 </div>
-<!-- Tier 2 — The Prescription -->
 <div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-2">
 <h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-1">Tier 02</h4>
 <p class="text-[#F5F0E8] font-headline text-xl italic mb-4">The Prescription</p>
@@ -416,7 +542,6 @@
 <p class="text-xs text-surface-variant italic mb-6">For established coaches ready to go premium. Volume sweet spot.</p>
 <a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
 </div>
-<!-- Tier 3 — The Practice -->
 <div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-1">
 <h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-1">Tier 03</h4>
 <p class="text-[#F5F0E8] font-headline text-xl italic mb-4">The Practice</p>
@@ -432,7 +557,6 @@
 <p class="text-xs text-surface-variant italic mb-6">For scaling coaches who need a design partner, not a one-time vendor.</p>
 <a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
 </div>
-<!-- Tier 4 — The Full Practice Build -->
 <div class="bg-[#1A1A1A] p-10 border border-[#B8912A]/40 flex flex-col group shadow-[0_0_20px_rgba(184,145,42,0.1)] reveal stagger-2">
 <h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-1">Tier 04</h4>
 <p class="text-[#F5F0E8] font-headline text-xl italic mb-4">The Full Practice Build</p>
@@ -452,6 +576,7 @@
 </div>
 </div>
 </section>
+
 <!-- Apply Section -->
 <section class="py-32 bg-[#F5F0E8] px-8 md:px-24 border-t border-[#D6CAB0]/40" id="apply">
 <div class="max-w-4xl mx-auto">
@@ -491,6 +616,7 @@
 </div>
 </section>
 </main>
+
 <!-- Footer -->
 <footer class="bg-[#1A1A1A] dark:bg-[#0C0A07] border-t border-[#B8912A]/20">
 <div class="flex flex-col items-center gap-8 py-16 w-full text-center max-w-screen-2xl mx-auto px-8">
@@ -510,13 +636,14 @@
 <p class="text-[#6B5E4A] text-xs tracking-widest">© Kosmus Studio. Order brought to chaos.</p>
 <p class="text-[#6B5E4A] text-xs tracking-widest uppercase">Curated in Jamaica</p>
 <div class="flex gap-4">
-<span class="text-[#B8912A] text-xs tracking-[0.2em]">KOSMUS.STUDIO</span>
+<span class="text-[#B8912A] text-xs tracking-[0.2em]">KOSMUS.AGENCY</span>
 </div>
 </div>
 </div>
 </footer>
+
 <script>
-    // Initialize Intersection Observer for reveals and drawing rules
+    // Intersection Observer for reveals and drawing rules
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -530,10 +657,9 @@
         });
     }, observerOptions);
 
-    // Apply observer to elements
     document.querySelectorAll('.reveal, .draw-rule').forEach(el => observer.observe(el));
 
-    // Parallax Effect
+    // Parallax
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         document.querySelectorAll('.parallax-text').forEach(el => {
@@ -542,25 +668,19 @@
         });
     });
 
-    // Elegant scroll behavior for navigation
+    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth' });
         });
     });
 
-    // Form interactivity
-    const inputs = document.querySelectorAll('input, textarea');
-    inputs.forEach(input => {
-        input.addEventListener('focus', () => {
-            input.parentElement.classList.add('border-primary');
-        });
-        input.addEventListener('blur', () => {
-            input.parentElement.classList.remove('border-primary');
-        });
+    // Form focus states
+    document.querySelectorAll('input, textarea').forEach(input => {
+        input.addEventListener('focus', () => input.parentElement.classList.add('border-primary'));
+        input.addEventListener('blur', () => input.parentElement.classList.remove('border-primary'));
     });
 </script>
 </body></html>
