@@ -1,5 +1,5 @@
+```html
 <!DOCTYPE html>
-
 <html class="scroll-smooth" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
@@ -81,6 +81,13 @@
             object-position: top center;
             display: block;
             transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        /* Fix for Elise thumbnail on mobile */
+        @media (max-width: 768px) {
+            .elise-thumb {
+                object-position: center 30% !important;
+            }
         }
 
         .work-card:hover .portfolio-thumb img {
@@ -331,7 +338,7 @@
 </section>
 
 <!-- ═══════════════════════════════════════
-     WORK SECTION — updated with live thumbnails + links
+     WORK SECTION — updated with live thumbnails + links (fixed Elise mobile position)
 ════════════════════════════════════════ -->
 <section class="py-32 bg-[#F5F0E8] px-8 md:px-24" id="work">
 <div class="max-w-7xl mx-auto">
@@ -345,12 +352,13 @@
 
   <div class="grid grid-cols-1 gap-32">
 
-    <!-- Work Item 1 — Elise -->
+    <!-- Work Item 1 — Elise (fixed mobile crop) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
       <a href="https://elise.kosmus.agency/" target="_blank" rel="noopener noreferrer"
          class="lg:col-span-8 portfolio-thumb block">
-        <!-- Live screenshot via screenshotone API (no key needed for basic) -->
+        <!-- Live screenshot via screenshotone API with elise-thumb class for mobile fix -->
         <img
+          class="elise-thumb"
           src="https://api.screenshotone.com/take?url=https%3A%2F%2Felise.kosmus.agency%2F&viewport_width=1280&viewport_height=720&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=2&timeout=60"
           alt="Elise Method — luxury financial coaching website"
           loading="lazy"
@@ -684,3 +692,4 @@
     });
 </script>
 </body></html>
+```
