@@ -24,7 +24,6 @@
         }
         .font-cormorant-sc { font-family: 'Cormorant SC', serif; }
 
-        /* Animation Styles */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -57,7 +56,6 @@
             transition: transform 0.1s linear;
         }
 
-        /* ── Portfolio card hover ── */
         .work-card-overlay {
             opacity: 0;
             transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
@@ -66,7 +64,6 @@
             opacity: 1;
         }
 
-        /* Screenshot thumbnail styles */
         .portfolio-thumb {
             position: relative;
             overflow: hidden;
@@ -82,7 +79,6 @@
             transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
-        /* Fix for Elise thumbnail on mobile */
         @media (max-width: 768px) {
             .elise-thumb {
                 object-position: center 30% !important;
@@ -93,7 +89,6 @@
             transform: scale(1.05);
         }
 
-        /* Fallback placeholder when image loading */
         .portfolio-thumb .thumb-fallback {
             position: absolute;
             inset: 0;
@@ -120,7 +115,6 @@
             text-transform: uppercase;
         }
 
-        /* Gold rule on card overlay */
         .view-label {
             font-family: 'Cormorant SC', serif;
             letter-spacing: 0.3em;
@@ -133,6 +127,19 @@
         .stagger-1 { transition-delay: 0.1s; }
         .stagger-2 { transition-delay: 0.2s; }
         .stagger-3 { transition-delay: 0.3s; }
+
+        /* ── Tally embed wrapper ── */
+        .tally-wrapper {
+            background: white;
+            border: 1px solid rgba(214, 202, 176, 0.2);
+            padding: 2rem;
+        }
+
+        .tally-wrapper iframe {
+            display: block;
+            width: 100%;
+            border: none;
+        }
     </style>
 <script id="tailwind-config">
         tailwind.config = {
@@ -214,10 +221,10 @@
                 KOSMUS
             </div>
 <div class="hidden md:flex items-center gap-10">
-<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif Cormorant Garamond tracking-tight hover:tracking-widest" href="#work">Work</a>
-<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif Cormorant Garamond tracking-tight hover:tracking-widest" href="#process">Process</a>
-<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif Cormorant Garamond tracking-tight hover:tracking-widest" href="#pricing">Pricing</a>
-<a class="bg-primary-container text-on-primary px-6 py-2 rounded shadow-sm hover:opacity-90 hover:shadow-lg transition-all duration-500 font-serif Cormorant Garamond tracking-tight" href="#apply">Apply</a>
+<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif tracking-tight hover:tracking-widest" href="#work">Work</a>
+<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif tracking-tight hover:tracking-widest" href="#process">Process</a>
+<a class="text-[#6B5E4A] hover:text-[#0C0A07] dark:hover:text-[#F5F0E8] transition-all duration-300 font-serif tracking-tight hover:tracking-widest" href="#pricing">Pricing</a>
+<a class="bg-primary-container text-on-primary px-6 py-2 rounded shadow-sm hover:opacity-90 hover:shadow-lg transition-all duration-500 font-serif tracking-tight" href="#apply">Apply</a>
 </div>
 <button class="md:hidden text-secondary">
 <span class="material-symbols-outlined">menu</span>
@@ -243,7 +250,6 @@
 <a class="px-8 py-4 border border-[#D6CAB0]/40 text-[#F5F0E8] font-medium text-lg rounded-sm hover:bg-[#F5F0E8]/5 transition-all duration-500 text-center btn-luxury" href="#work">
                         See the Work
                     </a>
-</div>
 </div>
 </div>
 </section>
@@ -336,12 +342,9 @@
 </div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     WORK SECTION — updated with live thumbnails + links (fixed Elise mobile position)
-════════════════════════════════════════ -->
+<!-- Work Section -->
 <section class="py-32 bg-[#F5F0E8] px-8 md:px-24" id="work">
 <div class="max-w-7xl mx-auto">
-
   <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
     <h2 class="text-4xl md:text-6xl font-headline font-bold text-[#0C0A07]">
       Selected <span class="italic">Archives.</span>
@@ -350,12 +353,10 @@
   </div>
 
   <div class="grid grid-cols-1 gap-32">
-
-    <!-- Work Item 1 — Elise (fixed mobile crop) -->
+    <!-- Work Item 1 — Elise -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
       <a href="https://elise.kosmus.agency/" target="_blank" rel="noopener noreferrer"
          class="lg:col-span-8 portfolio-thumb block">
-        <!-- Live screenshot via screenshotone API with elise-thumb class for mobile fix -->
         <img
           class="elise-thumb"
           src="https://api.screenshotone.com/take?url=https%3A%2F%2Felise.kosmus.agency%2F&viewport_width=1280&viewport_height=720&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=2&timeout=60"
@@ -363,16 +364,12 @@
           loading="lazy"
           onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
         />
-        <!-- Fallback if screenshot service unavailable -->
         <div class="thumb-fallback" style="display:none; aspect-ratio:16/9; position:relative;">
           <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
             <div class="site-name">The Elise Method</div>
             <div class="site-url">elise.kosmus.agency</div>
-            <div style="width:2rem;height:1px;background:#B8912A;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;color:#6B5E4A;text-transform:uppercase;">Click to visit →</div>
           </div>
         </div>
-        <!-- Hover overlay -->
         <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
           <span class="view-label">VIEW PROJECT</span>
         </div>
@@ -384,8 +381,7 @@
         <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6"></div>
         <a href="https://elise.kosmus.agency/" target="_blank" rel="noopener noreferrer"
            class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300">
-          View Live Site
-          <span style="font-size:1rem;">→</span>
+          View Live Site <span style="font-size:1rem;">→</span>
         </a>
       </div>
     </div>
@@ -399,8 +395,7 @@
         <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6 lg:ml-auto"></div>
         <a href="https://marcus.kosmus.agency/" target="_blank" rel="noopener noreferrer"
            class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300 lg:justify-end">
-          View Live Site
-          <span style="font-size:1rem;">→</span>
+          View Live Site <span style="font-size:1rem;">→</span>
         </a>
       </div>
       <a href="https://marcus.kosmus.agency/" target="_blank" rel="noopener noreferrer"
@@ -415,8 +410,6 @@
           <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
             <div class="site-name">Marcus Wealth</div>
             <div class="site-url">marcus.kosmus.agency</div>
-            <div style="width:2rem;height:1px;background:#B8912A;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;color:#6B5E4A;text-transform:uppercase;">Click to visit →</div>
           </div>
         </div>
         <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
@@ -439,8 +432,6 @@
           <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
             <div class="site-name">Nadia Mendéz</div>
             <div class="site-url">nadia.kosmus.agency</div>
-            <div style="width:2rem;height:1px;background:#B8912A;"></div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:0.65rem;letter-spacing:0.2em;color:#6B5E4A;text-transform:uppercase;">Click to visit →</div>
           </div>
         </div>
         <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
@@ -454,12 +445,10 @@
         <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6"></div>
         <a href="https://nadia.kosmus.agency/" target="_blank" rel="noopener noreferrer"
            class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300">
-          View Live Site
-          <span style="font-size:1rem;">→</span>
+          View Live Site <span style="font-size:1rem;">→</span>
         </a>
       </div>
     </div>
-
   </div>
 </div>
 </section>
@@ -584,42 +573,37 @@
 </div>
 </section>
 
-<!-- Apply Section -->
+<!-- ══════════════════════════════════════════
+     APPLY SECTION — Tally embed integrated
+══════════════════════════════════════════ -->
 <section class="py-32 bg-[#F5F0E8] px-8 md:px-24 border-t border-[#D6CAB0]/40" id="apply">
 <div class="max-w-4xl mx-auto">
-<div class="text-center mb-20 reveal">
-<span class="font-cormorant-sc text-[#B8912A] tracking-[0.3em] uppercase text-sm block mb-6">Work With Us</span>
-<h2 class="text-5xl md:text-7xl font-headline font-light text-[#0C0A07] mb-8">Not everyone gets in.</h2>
-<p class="text-[#6B5E4A] text-lg max-w-2xl mx-auto leading-relaxed">
-                We work exclusively with financial coaches and consultants who are serious about their online presence. If that is you — apply.
-            </p>
-</div>
-<form class="space-y-8 bg-white/30 p-8 md:p-12 border border-[#D6CAB0]/20 editorial-inset reveal" onsubmit="return false;">
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-<div class="space-y-2 reveal stagger-1">
-<label class="text-xs uppercase tracking-widest text-secondary font-medium" for="name">Name</label>
-<input class="w-full bg-transparent border-0 border-b border-[#D6CAB0] focus:ring-0 focus:border-[#B8912A] px-0 py-3 text-[#0C0A07] placeholder:text-[#D6CAB0]/60 transition-colors" id="name" placeholder="John Doe" type="text"/>
-</div>
-<div class="space-y-2 reveal stagger-2">
-<label class="text-xs uppercase tracking-widest text-secondary font-medium" for="email">Email</label>
-<input class="w-full bg-transparent border-0 border-b border-[#D6CAB0] focus:ring-0 focus:border-[#B8912A] px-0 py-3 text-[#0C0A07] placeholder:text-[#D6CAB0]/60 transition-colors" id="email" placeholder="john@example.com" type="email"/>
-</div>
-</div>
-<div class="space-y-2 reveal stagger-1">
-<label class="text-xs uppercase tracking-widest text-secondary font-medium" for="offer">Offer &amp; Price Point</label>
-<input class="w-full bg-transparent border-0 border-b border-[#D6CAB0] focus:ring-0 focus:border-[#B8912A] px-0 py-3 text-[#0C0A07] placeholder:text-[#D6CAB0]/60 transition-colors" id="offer" placeholder="e.g. $10k Premium Coaching" type="text"/>
-</div>
-<div class="space-y-2 reveal stagger-2">
-<label class="text-xs uppercase tracking-widest text-secondary font-medium" for="problem">The Problem</label>
-<textarea class="w-full bg-transparent border-0 border-b border-[#D6CAB0] focus:ring-0 focus:border-[#B8912A] px-0 py-3 text-[#0C0A07] placeholder:text-[#D6CAB0]/60 min-h-[120px] resize-none transition-colors" id="problem" placeholder="What is currently preventing you from reaching your next revenue tier?"></textarea>
-</div>
-<div class="pt-8 text-center">
-<button class="w-full md:w-auto px-16 py-6 bg-[#0C0A07] text-[#B8912A] text-lg font-cormorant-sc tracking-[0.2em] font-bold hover:bg-[#1A1A1A] transition-all rounded-none btn-luxury">
-                    APPLY FOR A DIAGNOSIS
-                </button>
-<p class="mt-6 text-[#A8997F] text-sm font-body reveal">Applications reviewed within 48 hours.</p>
-</div>
-</form>
+
+  <!-- Section header -->
+  <div class="text-center mb-20 reveal">
+    <span class="font-cormorant-sc text-[#B8912A] tracking-[0.3em] uppercase text-sm block mb-6">Work With Us</span>
+    <h2 class="text-5xl md:text-7xl font-headline font-light text-[#0C0A07] mb-8">Not everyone gets in.</h2>
+    <p class="text-[#6B5E4A] text-lg max-w-2xl mx-auto leading-relaxed">
+      We work exclusively with financial coaches and consultants who are serious about their online presence. If that is you — apply.
+    </p>
+  </div>
+
+  <!-- Tally embed -->
+  <div class="tally-wrapper editorial-inset reveal">
+    <iframe
+      data-tally-src="https://tally.so/embed/lblL66?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
+      loading="lazy"
+      width="100%"
+      height="500"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+      title="Application Form"
+    ></iframe>
+  </div>
+
+  <p class="text-center text-[#A8997F] text-sm mt-8 reveal">Applications reviewed within 48 hours.</p>
+
 </div>
 </section>
 </main>
@@ -630,10 +614,10 @@
 <div class="font-serif text-2xl tracking-[0.3em] text-[#F5F0E8] first-letter:text-[#B8912A] reveal">
                 KOSMUS
             </div>
-<blockquote class="max-w-md mx-auto text-[#D6CAB0] font-serif Cormorant Garamond italic text-lg leading-relaxed reveal">
+<blockquote class="max-w-md mx-auto text-[#D6CAB0] font-serif italic text-lg leading-relaxed reveal">
                 "Order brought to chaos. Presence brought to power."
             </blockquote>
-<div class="flex flex-wrap justify-center gap-8 md:gap-12 text-[#D6CAB0] font-serif Cormorant Garamond tracking-normal reveal">
+<div class="flex flex-wrap justify-center gap-8 md:gap-12 text-[#D6CAB0] font-serif tracking-normal reveal">
 <a class="hover:text-[#B8912A] transition-colors" href="#work">Work</a>
 <a class="hover:text-[#B8912A] transition-colors" href="#process">Process</a>
 <a class="hover:text-[#B8912A] transition-colors" href="#pricing">Pricing</a>
@@ -649,8 +633,29 @@
 </div>
 </footer>
 
+<!-- Tally embed script -->
 <script>
-    // Intersection Observer for reveals and drawing rules
+  var d = document,
+      w = "https://tally.so/widgets/embed.js",
+      v = function() {
+        "undefined" != typeof Tally
+          ? Tally.loadEmbeds()
+          : d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e) {
+              e.src = e.dataset.tallySrc;
+            });
+      };
+  if ("undefined" != typeof Tally) {
+    v();
+  } else if (d.querySelector('script[src="' + w + '"]') == null) {
+    var s = d.createElement("script");
+    s.src = w;
+    s.onload = v;
+    s.onerror = v;
+    d.body.appendChild(s);
+  }
+</script>
+
+<script>
     const observerOptions = {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
@@ -666,7 +671,6 @@
 
     document.querySelectorAll('.reveal, .draw-rule').forEach(el => observer.observe(el));
 
-    // Parallax
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         document.querySelectorAll('.parallax-text').forEach(el => {
@@ -675,19 +679,12 @@
         });
     });
 
-    // Smooth scroll
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
             if (target) target.scrollIntoView({ behavior: 'smooth' });
         });
-    });
-
-    // Form focus states
-    document.querySelectorAll('input, textarea').forEach(input => {
-        input.addEventListener('focus', () => input.parentElement.classList.add('border-primary'));
-        input.addEventListener('blur', () => input.parentElement.classList.remove('border-primary'));
     });
 </script>
 </body></html>
