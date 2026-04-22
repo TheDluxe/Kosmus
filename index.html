@@ -299,25 +299,15 @@
       color:#A8997F;
       max-width:44ch;
       line-height:1.65;
-      margin:0 0 0.5rem 0;
+      margin:0 0 2.5rem 0; /* Increased margin for breathing room since trust line is gone */
       opacity:0;transform:translateY(20px);
       transition:opacity 0.8s 1s ease,transform 0.8s 1s ease;
     ">
       Prospects who arrive ready to pay. Discovery calls that open with trust already built.
     </p>
 
-    <!-- Trust micro-line -->
-    <p style="
-      font-family:'DM Sans',sans-serif;
-      font-size:0.63rem;letter-spacing:0.18em;text-transform:uppercase;
-      color:#4a4030;margin:0 0 2rem 0;
-      opacity:0;transition:opacity 0.8s 1.15s ease;
-    ">
-      Bespoke Framer builds · Zero templates · Delivered in 2–3 weeks
-    </p>
-
     <!-- CTA -->
-    <div style="opacity:0;transform:translateY(14px);transition:opacity 0.7s 1.3s ease,transform 0.7s 1.3s ease;">
+    <div style="opacity:0;transform:translateY(14px);transition:opacity 0.7s 1.25s ease,transform 0.7s 1.25s ease;">
       <a href="#apply" class="btn-luxury" style="
         display:inline-block;
         padding:0.9rem 2.2rem;
@@ -843,7 +833,6 @@
     const scarcityEl = document.getElementById('scarcity-text');
     const reviewEl = document.getElementById('review-text');
 
-    // If it's after the 20th, move to next month logic
     if (currentDay >= 20) {
       const nextMonthIndex = (currentMonthIndex + 1) % 12;
       const nextMonthName = monthNames[nextMonthIndex];
@@ -855,7 +844,6 @@
         reviewEl.textContent = `Currently taking 2 clients per month · Reviewing ${nextMonthName} applications now`;
       }
     } else {
-      // Early/Mid month logic
       const currentMonthName = monthNames[currentMonthIndex];
       if (scarcityEl) {
         scarcityEl.textContent = `Taking 2 new clients in ${currentMonthName} — 1 spot remaining`;
