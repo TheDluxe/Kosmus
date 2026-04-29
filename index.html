@@ -1,907 +1,274 @@
 <!DOCTYPE html>
-<html class="scroll-smooth" lang="en">
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>KOSMUS | High-End Design for Financial Coaches</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+SC:wght@400;500;600&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<style>
-  .grain-overlay {
-    position: fixed; top: 0; left: 0;
-    width: 100%; height: 100%;
-    pointer-events: none; z-index: 9999; opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  }
-  .editorial-inset { box-shadow: 0px 20px 40px rgba(12,10,7,0.05); }
-  .font-cormorant-sc { font-family: 'Cormorant SC', serif; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KOSMUS | Guided Conversion Systems for Financial Coaches</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
-  .reveal {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 1.2s cubic-bezier(0.22,1,0.36,1), transform 1.2s cubic-bezier(0.22,1,0.36,1);
-  }
-  .reveal.active { opacity: 1; transform: translateY(0); }
-
-  .draw-rule {
-    transform-origin: left; transform: scaleX(0);
-    transition: transform 1.5s cubic-bezier(0.65,0,0.35,1);
-  }
-  .draw-rule.active { transform: scaleX(1); }
-
-  .btn-luxury { transition: all 0.6s cubic-bezier(0.22,1,0.36,1); }
-  .btn-luxury:hover { letter-spacing: 0.1em; transform: translateY(-2px); }
-
-  .parallax-text { will-change: transform; transition: transform 0.1s linear; }
-
-  .work-card-overlay {
-    opacity: 0; transition: all 0.6s cubic-bezier(0.22,1,0.36,1);
-  }
-  .work-card:hover .work-card-overlay { opacity: 1; }
-
-  .portfolio-thumb { position: relative; overflow: hidden; background: #1A1A1A; }
-  .portfolio-thumb img {
-    width: 100%; aspect-ratio: 16/9; object-fit: cover; object-position: top center;
-    display: block; transition: transform 1.2s cubic-bezier(0.22,1,0.36,1);
-  }
-  @media (max-width: 768px) { .elise-thumb { object-position: center center !important; } }
-  .work-card:hover .portfolio-thumb img { transform: scale(1.05); }
-  .portfolio-thumb .thumb-fallback {
-    position: absolute; inset: 0; display: flex;
-    flex-direction: column; align-items: center; justify-content: center;
-    background: #0C0A07; gap: 1rem;
-  }
-  .portfolio-thumb .thumb-fallback .site-name {
-    font-family: 'Cormorant SC', serif; font-size: 1.5rem;
-    letter-spacing: 0.3em; color: #B8912A; text-align: center;
-  }
-  .portfolio-thumb .thumb-fallback .site-url {
-    font-family: 'DM Sans', sans-serif; font-size: 0.7rem;
-    letter-spacing: 0.2em; color: #6B5E4A; text-transform: uppercase; text-align: center;
-  }
-  .view-label {
-    font-family: 'Cormorant SC', serif; letter-spacing: 0.3em;
-    border: 1px solid rgba(245,240,232,0.4); padding: 0.6rem 1.5rem;
-    color: #F5F0E8; font-size: 0.75rem;
-  }
-  .stagger-1 { transition-delay: 0.1s; }
-  .stagger-2 { transition-delay: 0.2s; }
-  .stagger-3 { transition-delay: 0.3s; }
-
-  .tally-wrapper {
-    background: white; border: 1px solid rgba(214,202,176,0.2); padding: 2rem;
-  }
-  .tally-wrapper iframe { display: block; width: 100%; border: none; }
-
-  /* ── Mobile menu ── */
-  #mobile-menu {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%; left: 0; right: 0;
-    background: rgba(245,240,232,0.98);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(214,202,176,0.4);
-    padding: 1.5rem 2rem 2rem;
-    gap: 1.25rem;
-    z-index: 100;
-  }
-  #mobile-menu.open { display: flex; }
-  #mobile-menu a {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.25rem; letter-spacing: 0.05em;
-    color: #6B5E4A; text-decoration: none;
-    border-bottom: 1px solid rgba(214,202,176,0.4);
-    padding-bottom: 1rem;
-    transition: color 0.3s;
-  }
-  #mobile-menu a:last-child { border-bottom: none; padding-bottom: 0; }
-  #mobile-menu a:hover { color: #B8912A; }
-  #mobile-menu a.apply-link {
-    color: #B8912A; font-weight: 600;
-    border-bottom: none;
-  }
-
-  /* ── Scarcity badge ── */
-  .scarcity-tag {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.72rem; font-weight: 500;
-    letter-spacing: 0.16em; text-transform: uppercase;
-    color: rgba(184,145,42,0.85);
-    margin-bottom: 1.25rem;
-  }
-  .scarcity-dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: #B8912A;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(0.7); }
-  }
-</style>
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "primary-fixed-dim": "#edc156",
-          "error-container": "#ffdad6",
-          "error": "#ba1a1a",
-          "on-error-container": "#93000a",
-          "on-primary-fixed": "#251a00",
-          "background": "#fef9f1",
-          "surface-container": "#f2ede5",
-          "surface-container-highest": "#e7e2da",
-          "surface-container-low": "#f8f3eb",
-          "outline-variant": "#d1c5b0",
-          "on-background": "#1d1c17",
-          "on-tertiary-fixed-variant": "#5a4400",
-          "tertiary-fixed-dim": "#e8c267",
-          "surface-container-high": "#ece8e0",
-          "on-surface-variant": "#4e4636",
-          "primary-fixed": "#ffdf99",
-          "surface": "#fef9f1",
-          "surface-dim": "#ded9d2",
-          "on-tertiary-fixed": "#251a00",
-          "surface-tint": "#775a00",
-          "surface-bright": "#fef9f1",
-          "surface-variant": "#e7e2da",
-          "primary-container": "#b8912a",
-          "on-secondary": "#ffffff",
-          "on-primary-fixed-variant": "#5a4300",
-          "secondary": "#695d49",
-          "inverse-primary": "#edc156",
-          "secondary-fixed-dim": "#d5c4ac",
-          "on-secondary-fixed": "#231a0b",
-          "secondary-container": "#efddc4",
-          "on-tertiary": "#ffffff",
-          "on-surface": "#1d1c17",
-          "inverse-on-surface": "#f5f0e8",
-          "tertiary-container": "#b4923c",
-          "on-secondary-fixed-variant": "#514532",
-          "tertiary": "#765a02",
-          "on-tertiary-container": "#3c2d00",
-          "on-primary": "#ffffff",
-          "on-primary-container": "#3d2c00",
-          "on-error": "#ffffff",
-          "inverse-surface": "#32302b",
-          "on-secondary-container": "#6e614d",
-          "outline": "#807664",
-          "primary": "#775a00",
-          "secondary-fixed": "#f2e0c7",
-          "surface-container-lowest": "#ffffff",
-          "tertiary-fixed": "#ffdf97"
-        },
-        borderRadius: {
-          "DEFAULT": "0.125rem", "lg": "0.25rem",
-          "xl": "0.5rem", "full": "0.75rem"
-        },
-        fontFamily: {
-          "headline": ["Cormorant Garamond","serif"],
-          "body": ["DM Sans","sans-serif"],
-          "label": ["DM Sans","sans-serif"]
-        }
-      }
+  <style>
+    :root {
+      --ink: #0C0A07;
+      --paper: #F5F0E8;
+      --gold: #B8912A;
+      --white: #FDFAF4;
+      --text-muted: #52493A;
+      --serif: 'Cormorant Garamond', serif;
+      --sans: 'DM Sans', sans-serif;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
-  }
-</script>
-</head>
-<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-white overflow-x-hidden">
-<div class="grain-overlay"></div>
 
-<!-- ── NAV ── -->
-<header class="fixed top-0 left-0 w-full z-50 bg-[#F5F0E8]/90 backdrop-filter backdrop-blur-md border-b border-[#D6CAB0]/40">
-  <nav class="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto relative">
-    <a href="#" class="font-serif text-xl tracking-[0.3em] text-[#0C0A07] first-letter:text-[#B8912A] no-underline">
-      KOSMUS
-    </a>
-    <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-10">
-      <a class="text-[#6B5E4A] hover:text-[#0C0A07] transition-all duration-300 font-serif tracking-tight hover:tracking-widest" href="#work">Work</a>
-      <a class="text-[#6B5E4A] hover:text-[#0C0A07] transition-all duration-300 font-serif tracking-tight hover:tracking-widest" href="#process">Process</a>
-      <a class="text-[#6B5E4A] hover:text-[#0C0A07] transition-all duration-300 font-serif tracking-tight hover:tracking-widest" href="#pricing">Pricing</a>
-    </div>
-    <!-- Mobile hamburger -->
-    <button id="menu-toggle" class="md:hidden text-[#6B5E4A] hover:text-[#B8912A] transition-colors p-1" aria-label="Toggle menu" aria-expanded="false">
-      <span id="icon-open">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <line x1="3" y1="7" x2="21" y2="7"/>
-          <line x1="3" y1="12" x2="21" y2="12"/>
-          <line x1="3" y1="17" x2="21" y2="17"/>
-        </svg>
-      </span>
-      <span id="icon-close" style="display:none;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-          <line x1="4" y1="4" x2="20" y2="20"/>
-          <line x1="20" y1="4" x2="4" y2="20"/>
-        </svg>
-      </span>
-    </button>
-    <!-- Mobile dropdown -->
-    <div id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-      <a href="#work">Work</a>
-      <a href="#process">Process</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#apply" class="apply-link">Apply for a Diagnosis →</a>
-    </div>
-  </nav>
-</header>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 16px; background: var(--ink); }
+    body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-<main>
+    /* ANIMATION UTILS */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
+    .reveal.active { opacity: 1; transform: translateY(0); }
 
-<!-- ── HERO ── -->
-<section id="hero" style="
-  position: relative;
-  height: 100vh;
-  min-height: 650px;
-  max-height: 1100px;
-  background: #0C0A07;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 0 clamp(2rem, 8vw, 6rem);
-">
+    /* CURSOR */
+    #c-dot, #c-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); display: none; }
+    @media (pointer: fine) { #c-dot, #c-ring { display: block; } }
+    #c-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+    #c-ring { width: 34px; height: 34px; border: 1px solid var(--gold); border-radius: 50%; opacity: 0.2; transition: width 0.3s var(--ease), height 0.3s var(--ease); }
 
-  <!-- Canvas background -->
-  <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:0;transition:opacity 1.8s ease;"></canvas>
-
-  <!-- Vignette -->
-  <div style="
-    position:absolute;inset:0;z-index:1;pointer-events:none;
-    background: radial-gradient(ellipse 80% 100% at 60% 50%, transparent 20%, rgba(12,10,7,0.55) 70%, rgba(12,10,7,0.92) 100%),
-                linear-gradient(to right, rgba(12,10,7,0.85) 0%, rgba(12,10,7,0.3) 50%, transparent 100%);
-  "></div>
-
-  <!-- Gold rule -->
-  <div id="hero-rule" style="
-    position:absolute;left:0;top:0;bottom:0;width:2px;z-index:2;
-    background:linear-gradient(to bottom, transparent 0%, #B8912A 30%, #B8912A 70%, transparent 100%);
-    transform:scaleY(0);transform-origin:top;transition:transform 1.4s 0.4s cubic-bezier(0.65,0,0.35,1);
-    opacity:0.5;
-  "></div>
-
-  <!-- Content -->
-  <div style="position:relative;z-index:3;max-width:780px;padding-top:18vh;padding-bottom:10vh;">
-
-    <!-- Smart Scarcity Tag -->
-    <div class="scarcity-tag" style="opacity:0;transform:translateY(10px);transition:opacity 0.6s 0.5s ease,transform 0.6s 0.5s ease;">
-      <span class="scarcity-dot"></span>
-      <span id="scarcity-text">Checking availability...</span>
-    </div>
-
-    <!-- Headline -->
-    <h1 style="
-      font-family:'Cormorant Garamond',serif;
-      font-size:clamp(3.2rem,7.2vw,6rem);
-      font-weight:700;
-      line-height:1.05;
-      letter-spacing:-0.01em;
-      color:#F5F0E8;
-      margin:0 0 1rem 0;
-      opacity:0;transform:translateY(28px);
-      transition:opacity 0.9s 0.7s ease,transform 0.9s 0.7s ease;
-    ">
-      Your expertise says $10k.<br>
-      <span style="font-style:italic;color:#C9A84C;">Does your site?</span>
-    </h1>
-
-    <!-- Subheadline -->
-    <p style="
-      font-family:'DM Sans',sans-serif;
-      font-size:clamp(0.88rem,1.3vw,1rem);
-      font-weight:300;
-      color:#A8997F;
-      max-width:44ch;
-      line-height:1.65;
-      margin:0 0 2.5rem 0; /* Increased margin for breathing room since trust line is gone */
-      opacity:0;transform:translateY(20px);
-      transition:opacity 0.8s 1s ease,transform 0.8s 1s ease;
-    ">
-      Prospects who arrive ready to pay. Discovery calls that open with trust already built.
-    </p>
-
-    <!-- CTA -->
-    <div style="opacity:0;transform:translateY(14px);transition:opacity 0.7s 1.25s ease,transform 0.7s 1.25s ease;">
-      <a href="#apply" class="btn-luxury" style="
-        display:inline-block;
-        padding:0.9rem 2.2rem;
-        background:linear-gradient(135deg,#B8912A,#D4B057);
-        color:#0C0A07;
-        font-family:'DM Sans',sans-serif;
-        font-size:0.82rem;font-weight:700;
-        letter-spacing:0.12em;text-transform:uppercase;
-        text-decoration:none;
-        border-radius:2px;
-        box-shadow:0 4px 24px rgba(184,145,42,0.25);
-        transition:all 0.5s cubic-bezier(0.22,1,0.36,1);
-      "
-      onmouseover="this.style.boxShadow='0 8px 36px rgba(184,145,42,0.45)';this.style.transform='translateY(-2px)';"
-      onmouseout="this.style.boxShadow='0 4px 24px rgba(184,145,42,0.25)';this.style.transform='translateY(0)';"
-      >
-        Apply for a Diagnosis
-      </a>
-    </div>
-
-  </div>
-
-</section>
-
-<script>
-(function(){
-  const canvas = document.getElementById('hero-canvas');
-  const ctx    = canvas.getContext('2d');
-  let W, H, particles, lines, mouse = {x:-999,y:-999};
-
-  function resize(){
-    W = canvas.width  = canvas.offsetWidth;
-    H = canvas.height = canvas.offsetHeight;
-  }
-
-  function rand(a,b){ return a + Math.random()*(b-a); }
-
-  function init(){
-    resize();
-    const count = Math.min(Math.floor(W * H / 8000), 140);
-    particles = Array.from({length: count}, () => ({
-      x:  rand(0,W), y: rand(0,H),
-      vx: rand(-0.18,0.18), vy: rand(-0.12,0.12),
-      r:  rand(0.4,2.2),
-      alpha: rand(0.15,0.7),
-      gold: Math.random() > 0.72
-    }));
-    lines = Array.from({length: 5}, () => ({
-      y:    rand(0.1,0.9) * H,
-      vy:   rand(-0.04,0.04),
-      x1:   rand(-0.1,0.3) * W,
-      x2:   rand(0.6,1.1)  * W,
-      alpha:rand(0.03,0.08),
-    }));
-  }
-
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    lines.forEach(l => {
-      l.y += l.vy;
-      if(l.y < 0) l.y = H;
-      if(l.y > H) l.y = 0;
-      ctx.beginPath();
-      ctx.moveTo(l.x1, l.y);
-      ctx.lineTo(l.x2, l.y);
-      ctx.strokeStyle = `rgba(184,145,42,${l.alpha})`;
-      ctx.lineWidth = 0.5;
-      ctx.stroke();
-    });
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        const p=particles[i], q=particles[j];
-        const dx=p.x-q.x, dy=p.y-q.y;
-        const dist=Math.sqrt(dx*dx+dy*dy);
-        if(dist<120){
-          const a=(1-dist/120)*0.07;
-          ctx.beginPath();
-          ctx.moveTo(p.x,p.y);
-          ctx.lineTo(q.x,q.y);
-          ctx.strokeStyle=`rgba(184,145,42,${a})`;
-          ctx.lineWidth=0.4;
-          ctx.stroke();
-        }
-      }
+    /* PILL NAV */
+    .nav-wrapper { position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1000px; z-index: 1000; }
+    nav { 
+      display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 1.8rem; 
+      background: rgba(245, 240, 232, 0.95); backdrop-filter: blur(12px); border-radius: 50px; 
+      border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 12px 40px rgba(0,0,0,0.08); 
     }
-    particles.forEach(p => {
-      const dx=p.x-mouse.x, dy=p.y-mouse.y;
-      const md=Math.sqrt(dx*dx+dy*dy);
-      const glow = md < 100 ? (1-md/100)*0.6 : 0;
-      p.x += p.vx; p.y += p.vy;
-      if(p.x<0) p.x=W; if(p.x>W) p.x=0;
-      if(p.y<0) p.y=H; if(p.y>H) p.y=0;
-      const col = p.gold
-        ? `rgba(184,145,42,${Math.min(p.alpha + glow, 0.95)})`
-        : `rgba(245,240,232,${Math.min(p.alpha + glow*0.4, 0.75)})`;
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r + glow*1.5, 0, Math.PI*2);
-      ctx.fillStyle = col;
-      ctx.fill();
-      if(glow > 0.1){
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r*3+glow*4,0,Math.PI*2);
-        ctx.fillStyle=`rgba(184,145,42,${glow*0.08})`;
-        ctx.fill();
-      }
-    });
-    requestAnimationFrame(draw);
-  }
+    .logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; text-decoration: none; color: var(--ink); letter-spacing: 0.1em; }
+    .logo span { color: var(--gold); }
+    .nav-cta { background: var(--ink); color: var(--white); padding: 0.7rem 1.4rem; font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; text-decoration: none; border-radius: 40px; transition: 0.3s var(--ease); }
 
-  window.addEventListener('resize', ()=>{ resize(); init(); });
-  canvas.addEventListener('mousemove', e=>{
-    const r=canvas.getBoundingClientRect();
-    mouse.x=e.clientX-r.left; mouse.y=e.clientY-r.top;
-  });
-  canvas.addEventListener('mouseleave',()=>{ mouse.x=-999; mouse.y=-999; });
+    /* HERO */
+    .hero { min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; padding-top: 10rem; padding-bottom: 6rem; position: relative; overflow: hidden; background: var(--ink);}
+    #particle-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.4; }
+    .hero-content { max-width: 900px; z-index: 2; padding: 0 5%; }
+    .hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 7vw, 4.5rem); line-height: 1.1; font-weight: 400; margin-bottom: 1.5rem; color: var(--white); }
+    .hero p { font-size: 1.25rem; color: var(--paper); opacity: 0.85; max-width: 50ch; margin: 0 auto 2.5rem; }
+    .cta-main { display: inline-block; background: var(--gold); color: var(--white); padding: 1.3rem 3.5rem; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s var(--ease); }
 
-  init();
-  draw();
-  setTimeout(()=>{ canvas.style.opacity='1'; }, 200);
+    /* NEW SECTION: LIVE SYSTEM AUDIT */
+    .audit-section { padding: 10rem 8%; background: var(--ink); border-top: 1px solid rgba(255,255,255,0.05); }
+    .audit-header { text-align: center; margin-bottom: 6rem; }
+    .label-gold { color: var(--gold); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1rem; }
+    .audit-header h2 { font-family: var(--serif); font-size: clamp(2.5rem, 5vw, 4rem); color: var(--white); font-weight: 400; line-height: 1.1; }
+    .audit-header p { color: var(--paper); opacity: 0.6; font-size: 1.2rem; margin-top: 1.5rem; }
 
-  function revealAll(){
-    const hero = document.getElementById('hero');
-    hero.querySelectorAll('[style*="opacity:0"]').forEach(el => {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
-    });
-    document.getElementById('hero-rule').style.transform = 'scaleY(1)';
-  }
-  if(document.readyState === 'complete') revealAll();
-  else window.addEventListener('load', revealAll);
-})();
-</script>
+    .audit-row { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 3rem; 
+      margin-bottom: 8rem; 
+      align-items: flex-start;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      padding-bottom: 8rem;
+    }
+    .audit-row:last-of-type { border-bottom: none; margin-bottom: 4rem; }
 
-<!-- ── DOCTRINE ── -->
-<section class="py-32 bg-[#F5F0E8] px-8 md:px-24">
-  <div class="max-w-6xl mx-auto space-y-32">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-      <div class="border-l border-[#B8912A] pl-8 reveal">
-        <span class="text-[#B8912A] font-medium tracking-widest text-sm block mb-4 uppercase">Belief 01</span>
-        <blockquote class="text-5xl md:text-6xl font-headline italic leading-snug text-[#0C0A07]">
-          "Luxury is the absence of unnecessary friction."
-        </blockquote>
-      </div>
-      <div class="hidden md:block">
-        <div class="h-px bg-[#D6CAB0]/40 w-full draw-rule"></div>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-      <div class="hidden md:block order-last">
-        <div class="h-px bg-[#D6CAB0]/40 w-full draw-rule"></div>
-      </div>
-      <div class="border-l border-[#B8912A] pl-8 reveal">
-        <span class="text-[#B8912A] font-medium tracking-widest text-sm block mb-4 uppercase">Belief 02</span>
-        <blockquote class="text-5xl md:text-6xl font-headline italic leading-snug text-[#0C0A07]">
-          "Credibility is lost in the details, or won in them."
-        </blockquote>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-      <div class="border-l border-[#B8912A] pl-8 reveal">
-        <span class="text-[#B8912A] font-medium tracking-widest text-sm block mb-4 uppercase">Belief 03</span>
-        <blockquote class="text-5xl md:text-6xl font-headline italic leading-snug text-[#0C0A07]">
-          "The grid is a suggestion; intent is the law."
-        </blockquote>
-      </div>
-      <div class="hidden md:block">
-        <div class="h-px bg-[#D6CAB0]/40 w-full draw-rule"></div>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-      <div class="hidden md:block order-last">
-        <div class="h-px bg-[#D6CAB0]/40 w-full draw-rule"></div>
-      </div>
-      <div class="border-l border-[#B8912A] pl-8 reveal">
-        <span class="text-[#B8912A] font-medium tracking-widest text-sm block mb-4 uppercase">Belief 04</span>
-        <blockquote class="text-5xl md:text-6xl font-headline italic leading-snug text-[#0C0A07]">
-          "Design should feel built, not rendered."
-        </blockquote>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PROBLEM / DIAGNOSIS ── -->
-<section class="py-32 bg-[#0C0A07] px-8 md:px-24 overflow-hidden" id="problem-diagnosis">
-  <div class="max-w-7xl mx-auto">
-    <h2 class="text-4xl md:text-6xl font-headline font-bold text-[#F5F0E8] mb-20 max-w-2xl reveal">
-      Diagnosis of the <span class="italic text-[#B8912A]">Professional Gap.</span>
-    </h2>
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 reveal stagger-1">
-        <span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.02">01</span>
-        <h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Symptom</h3>
-        <p class="text-surface-variant mb-12 text-base">High-ticket prospects are hesitant. They love your content but "need to think about it" once they see your proposal or site.</p>
-        <div class="mt-auto">
-          <h4 class="text-[#B8912A] text-xs uppercase tracking-widest mb-2">Root Cause</h4>
-          <p class="text-surface-variant font-light text-base">Visual Dissonance. Your expertise says $10k, your interface says $500.</p>
-        </div>
-      </div>
-      <div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 lg:mt-12 reveal stagger-2">
-        <span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.03">02</span>
-        <h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Symptom</h3>
-        <p class="text-surface-variant mb-12 text-base">You spend more time explaining 'how it works' than selling the outcome of your coaching.</p>
-        <div class="mt-auto">
-          <h4 class="text-[#B8912A] text-xs uppercase tracking-widest mb-2">Root Cause</h4>
-          <p class="text-surface-variant font-light text-base">Information Architecture Failure. Chaos instead of a curated path.</p>
-        </div>
-      </div>
-      <div class="bg-[#1A1A1A] p-12 relative overflow-hidden flex flex-col h-full border-t-2 border-[#B8912A]/30 lg:mt-24 reveal stagger-3">
-        <span class="text-[#B8912A] font-bold text-6xl opacity-10 absolute top-4 right-4 parallax-text" data-speed="0.04">03</span>
-        <h3 class="text-2xl font-headline font-bold text-[#F5F0E8] mb-6">Cost / Fix</h3>
-        <p class="text-surface-variant mb-12 text-base">Every lost client is a $24k+ annual revenue hole. The fix isn't a logo; it's a strategic digital presence built to close.</p>
-        <div class="mt-auto">
-          <h4 class="text-[#B8912A] text-xs uppercase tracking-widest mb-2">Resolution</h4>
-          <p class="text-surface-variant font-light text-base">Full ecosystem realignment to match your highest possible price point.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── WORK ── -->
-<section class="py-32 bg-[#F5F0E8] px-8 md:px-24" id="work">
-  <div class="max-w-7xl mx-auto">
-    <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 reveal">
-      <h2 class="text-4xl md:text-6xl font-headline font-bold text-[#0C0A07]">
-        Selected <span class="italic">Archives.</span>
-      </h2>
-      <p class="text-secondary max-w-sm mb-2 text-base">A small sample of environments we've curated for the world's most disciplined financial minds.</p>
-    </div>
-    <div class="grid grid-cols-1 gap-32">
-
-      <!-- Elise -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
-        <a href="https://elise.kosmus.agency/" target="_blank" rel="noopener noreferrer" class="lg:col-span-8 portfolio-thumb block">
-          <img class="elise-thumb"
-            src="https://api.screenshotone.com/take?url=https%3A%2F%2Felise.kosmus.agency%2F&viewport_width=1280&viewport_height=720&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=2&timeout=60"
-            alt="Elise Method — luxury financial coaching website" loading="lazy"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
-          <div class="thumb-fallback" style="display:none; aspect-ratio:16/9; position:relative;">
-            <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
-              <div class="site-name">The Elise Method</div>
-              <div class="site-url">elise.kosmus.agency</div>
-            </div>
-          </div>
-          <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
-            <span class="view-label">VIEW PROJECT</span>
-          </div>
-        </a>
-        <div class="lg:col-span-4 flex flex-col justify-center">
-          <span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 01</span>
-          <h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">The Elise Method</h3>
-          <p class="text-secondary leading-relaxed mb-8 reveal stagger-3 text-base">Redefining wealth management for high-net-worth female founders through a bespoke editorial digital experience.</p>
-          <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6"></div>
-          <a href="https://elise.kosmus.agency/" target="_blank" rel="noopener noreferrer"
-             class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300">
-            View Live Site <span style="font-size:1rem;">→</span>
-          </a>
-        </div>
-      </div>
-
-      <!-- Marcus -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
-        <div class="lg:col-span-4 lg:order-1 order-2 flex flex-col justify-center lg:text-right lg:items-end">
-          <span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 02</span>
-          <h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">Marcus Wealth</h3>
-          <p class="text-secondary leading-relaxed mb-8 reveal stagger-3 text-base">A dark, commanding interface for a boutique private equity coach who thrives on exclusivity and absolute clarity.</p>
-          <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6 lg:ml-auto"></div>
-          <a href="https://marcus.kosmus.agency/" target="_blank" rel="noopener noreferrer"
-             class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300 lg:justify-end">
-            View Live Site <span style="font-size:1rem;">→</span>
-          </a>
-        </div>
-        <a href="https://marcus.kosmus.agency/" target="_blank" rel="noopener noreferrer"
-           class="lg:col-span-8 lg:order-2 order-1 portfolio-thumb block">
-          <img src="https://api.screenshotone.com/take?url=https%3A%2F%2Fmarcus.kosmus.agency%2F&viewport_width=1280&viewport_height=720&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=2&timeout=60"
-            alt="Marcus Wealth — dark luxury private equity coach website" loading="lazy"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
-          <div class="thumb-fallback" style="display:none; aspect-ratio:16/9; position:relative;">
-            <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
-              <div class="site-name">Marcus Wealth</div>
-              <div class="site-url">marcus.kosmus.agency</div>
-            </div>
-          </div>
-          <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
-            <span class="view-label">VIEW PROJECT</span>
-          </div>
-        </a>
-      </div>
-
-      <!-- Nadia -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center group work-card reveal">
-        <a href="https://nadia.kosmus.agency/" target="_blank" rel="noopener noreferrer" class="lg:col-span-8 portfolio-thumb block">
-          <img src="https://api.screenshotone.com/take?url=https%3A%2F%2Fnadia.kosmus.agency%2F&viewport_width=1280&viewport_height=720&format=jpg&image_quality=85&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=2&timeout=60"
-            alt="Nadia Mendéz — editorial financial mentor website" loading="lazy"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"/>
-          <div class="thumb-fallback" style="display:none; aspect-ratio:16/9; position:relative;">
-            <div style="position:absolute;inset:0;background:#0C0A07;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;">
-              <div class="site-name">Nadia Mendéz</div>
-              <div class="site-url">nadia.kosmus.agency</div>
-            </div>
-          </div>
-          <div class="work-card-overlay absolute inset-0 z-10 flex items-center justify-center bg-[#0C0A07]/50">
-            <span class="view-label">VIEW PROJECT</span>
-          </div>
-        </a>
-        <div class="lg:col-span-4 flex flex-col justify-center">
-          <span class="text-[#B8912A] text-xs uppercase tracking-[0.2em] mb-4 reveal stagger-1">Case Study 03</span>
-          <h3 class="text-3xl font-headline font-bold mb-6 reveal stagger-2">Nadia Mendéz</h3>
-          <p class="text-secondary leading-relaxed mb-8 reveal stagger-3 text-base">Turning personal brand into institutional authority. Soft tones, sharp edges, and impeccable flow.</p>
-          <div class="h-px bg-[#D6CAB0] w-20 draw-rule mb-6"></div>
-          <a href="https://nadia.kosmus.agency/" target="_blank" rel="noopener noreferrer"
-             class="inline-flex items-center gap-2 text-[#B8912A] text-xs uppercase tracking-[0.2em] hover:gap-4 transition-all duration-300">
-            View Live Site <span style="font-size:1rem;">→</span>
-          </a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ── PROCESS ── -->
-<section class="py-32 bg-[#F5F0E8] px-8 md:px-24" id="process">
-  <div class="max-w-7xl mx-auto">
-    <h2 class="text-4xl md:text-6xl font-headline font-bold text-[#0C0A07] mb-24 reveal">
-      The <span class="italic text-[#B8912A]">Protocol.</span>
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-12 relative">
-      <div class="absolute top-12 left-0 w-full h-px bg-[#D6CAB0]/40 hidden md:block draw-rule"></div>
-      <div class="relative z-10 reveal stagger-1">
-        <div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">1</div>
-        <h4 class="font-headline text-xl font-bold mb-4">Diagnosis</h4>
-        <p class="text-base text-secondary leading-relaxed">We strip away the vanity metrics to find exactly where your current design is costing you clients and closing revenue gaps.</p>
-      </div>
-      <div class="relative z-10 reveal stagger-2">
-        <div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">2</div>
-        <h4 class="font-headline text-xl font-bold mb-4">Discovery</h4>
-        <p class="text-base text-secondary leading-relaxed">Excavating your unique methodology and translating it into a visual language that signals authority before you say a word.</p>
-      </div>
-      <div class="relative z-10 reveal stagger-3">
-        <div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">3</div>
-        <h4 class="font-headline text-xl font-bold mb-4">Design</h4>
-        <p class="text-base text-secondary leading-relaxed">Bespoke layouts. Zero templates. Built in Framer, designed specifically for your voice and your highest price point.</p>
-      </div>
-      <div class="relative z-10 reveal stagger-1">
-        <div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">4</div>
-        <h4 class="font-headline text-xl font-bold mb-4">Build</h4>
-        <p class="text-base text-secondary leading-relaxed">Precision execution. Seamless transitions, mobile optimisation, and performance dialed in before the keys are handed over.</p>
-      </div>
-      <div class="relative z-10 reveal stagger-2">
-        <div class="w-8 h-8 bg-[#0C0A07] text-[#B8912A] flex items-center justify-center font-bold mb-8 rounded-full">5</div>
-        <h4 class="font-headline text-xl font-bold mb-4">Launch</h4>
-        <p class="text-base text-secondary leading-relaxed">Your new digital presence goes live — and the retainer offer is on the table. Order brought to chaos.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── PRICING ── -->
-<section class="py-32 bg-[#0C0A07] px-8 md:px-24" id="pricing">
-  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-20">
-    <div class="lg:w-1/3 reveal">
-      <h2 class="text-4xl md:text-6xl font-headline font-bold text-[#F5F0E8] mb-8">
-        The <span class="italic text-[#B8912A]">Investment.</span>
-      </h2>
-      <div class="border-l border-[#B8912A] pl-6 mb-8 reveal stagger-1">
-        <p class="text-2xl font-headline italic text-[#F5F0E8]">"$2,000. No exceptions."</p>
-        <p class="text-base text-secondary mt-2">The floor. Every engagement starts here.</p>
-      </div>
-      <p class="text-surface-variant leading-relaxed reveal stagger-2 text-base">
-        We don't offer hourly rates or quick tweaks. We offer transformation. Choose the tier that matches your ambition — and your next revenue level.
-      </p>
-      <p class="text-surface-variant leading-relaxed mt-4 reveal stagger-3 text-base italic">
-        We never discount. If a tier is out of reach, the one below is the right product for your stage.
-      </p>
-    </div>
-    <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-1">
-        <h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-1">Tier 01</h4>
-        <p class="text-[#F5F0E8] font-headline text-xl italic mb-4">The Diagnosis</p>
-        <p class="text-4xl font-headline text-[#F5F0E8] mb-2">$2,000</p>
-        <p class="text-xs text-surface-variant mb-6 tracking-widest uppercase">One-time · 2 weeks · 2 rounds</p>
-        <ul class="text-surface-variant space-y-4 mb-10 flex-grow text-base">
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Brand audit + written diagnosis report</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> One-page strategic Framer site</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Mobile optimised</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Retainer offer at delivery</li>
-        </ul>
-        <p class="text-sm text-surface-variant italic mb-6">For early-stage coaches who need a professional presence fast.</p>
-        <a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
-      </div>
-      <div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-2">
-        <h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-1">Tier 02</h4>
-        <p class="text-[#F5F0E8] font-headline text-xl italic mb-4">The Prescription</p>
-        <p class="text-4xl font-headline text-[#F5F0E8] mb-2">$4,500</p>
-        <p class="text-xs text-surface-variant mb-6 tracking-widest uppercase">One-time · 3 weeks · 3 rounds</p>
-        <ul class="text-surface-variant space-y-4 mb-10 flex-grow text-base">
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Full 5–7 page Framer site</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Copywriting guidance &amp; page structure</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Lead magnet landing page</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Basic SEO setup on all pages</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> 30 days post-launch support</li>
-        </ul>
-        <p class="text-sm text-surface-variant italic mb-6">For established coaches ready to go premium. Volume sweet spot.</p>
-        <a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
-      </div>
-      <div class="bg-[#1A1A1A] p-10 border border-[#D6CAB0]/10 flex flex-col group hover:border-[#B8912A]/40 transition-all duration-500 reveal stagger-1">
-        <h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-1">Tier 03</h4>
-        <p class="text-[#F5F0E8] font-headline text-xl italic mb-4">The Practice</p>
-        <p class="text-4xl font-headline text-[#F5F0E8] mb-2">$2,000<span class="text-lg text-surface-variant">/mo</span></p>
-        <p class="text-xs text-surface-variant mb-6 tracking-widest uppercase">Monthly retainer · Ongoing · Unlimited</p>
-        <ul class="text-surface-variant space-y-4 mb-10 flex-grow text-base">
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Site maintenance &amp; copy updates</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Monthly performance review (Loom)</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> New landing pages as needed (1–2/mo)</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Priority turnaround on all requests</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Quarterly section redesign</li>
-        </ul>
-        <p class="text-sm text-surface-variant italic mb-6">For scaling coaches who need a design partner, not a one-time vendor.</p>
-        <a class="text-center py-3 border border-[#B8912A] text-[#B8912A] hover:bg-[#B8912A] hover:text-[#0C0A07] transition-all btn-luxury" href="#apply">Select Protocol</a>
-      </div>
-      <div class="bg-[#1A1A1A] p-10 border border-[#B8912A]/40 flex flex-col group shadow-[0_0_20px_rgba(184,145,42,0.1)] reveal stagger-2">
-        <h4 class="text-xs uppercase tracking-widest text-[#B8912A] mb-1">Tier 04</h4>
-        <p class="text-[#F5F0E8] font-headline text-xl italic mb-4">The Full Practice Build</p>
-        <p class="text-4xl font-headline text-[#F5F0E8] mb-2">$12,500</p>
-        <p class="text-xs text-surface-variant mb-6 tracking-widest uppercase">One-time · 4–5 weeks · 4 rounds</p>
-        <ul class="text-surface-variant space-y-4 mb-10 flex-grow text-base">
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Full brand identity (logo, colour, type, voice)</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Full Framer site — all pages</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Content strategy &amp; template system</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> Email opt-in setup &amp; integration</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> VIP onboarding call</li>
-          <li class="flex items-start gap-3"><span class="material-symbols-outlined text-xs text-[#B8912A] mt-1">check</span> 60 days post-launch support</li>
-        </ul>
-        <p class="text-sm text-surface-variant italic mb-6">For coaches pre-launch or rebranding at a serious level.</p>
-        <a class="text-center py-3 bg-gradient-to-br from-[#B8912A] to-[#D4B057] text-[#0C0A07] font-bold btn-luxury" href="#apply">Inquire</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── APPLY ── -->
-<section class="py-32 bg-[#F5F0E8] px-8 md:px-24 border-t border-[#D6CAB0]/40" id="apply">
-  <div class="max-w-4xl mx-auto">
-    <div class="text-center mb-16 reveal">
-      <span class="font-cormorant-sc text-[#B8912A] tracking-[0.3em] uppercase text-sm block mb-6">Work With Us</span>
-      <h2 class="text-5xl md:text-7xl font-headline font-light text-[#0C0A07] mb-6">Not everyone gets in.</h2>
-      <p class="text-[#6B5E4A] text-lg max-w-2xl mx-auto leading-relaxed mb-4">
-        We work exclusively with financial coaches and consultants who are serious about their online presence. If that is you — apply.
-      </p>
-      <p class="text-[#B8912A] text-sm tracking-widest uppercase font-medium" id="review-text">
-        Reviewing applications now
-      </p>
-    </div>
-    <div class="tally-wrapper editorial-inset reveal">
-      <iframe
-        data-tally-src="https://tally.so/embed/lblL66?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1"
-        loading="lazy"
-        width="100%"
-        height="500"
-        frameborder="0"
-        marginheight="0"
-        marginwidth="0"
-        title="Application Form"
-      ></iframe>
-    </div>
-    <p class="text-center text-[#A8997F] text-base mt-8 reveal">
-      Every application is reviewed personally. If we're a fit, you'll hear from us within 48 hours.
-    </p>
-  </div>
-</section>
-
-</main>
-
-<!-- ── FOOTER ── -->
-<footer class="bg-[#1A1A1A] border-t border-[#B8912A]/20">
-  <div class="flex flex-col items-center gap-8 py-16 w-full text-center max-w-screen-2xl mx-auto px-8">
-    <div class="font-serif text-2xl tracking-[0.3em] text-[#F5F0E8] first-letter:text-[#B8912A] reveal">KOSMUS</div>
-    <blockquote class="max-w-md mx-auto text-[#D6CAB0] font-serif italic text-lg leading-relaxed reveal">
-      "Order brought to chaos. Presence brought to power."
-    </blockquote>
-    <div class="flex flex-wrap justify-center gap-8 md:gap-12 text-[#D6CAB0] font-serif tracking-normal reveal">
-      <a class="hover:text-[#B8912A] transition-colors" href="#work">Work</a>
-      <a class="hover:text-[#B8912A] transition-colors" href="#process">Process</a>
-      <a class="hover:text-[#B8912A] transition-colors" href="#pricing">Pricing</a>
-      <a class="hover:text-[#B8912A] transition-colors" href="#apply">Apply</a>
-    </div>
-    <div class="pt-8 border-t border-[#D6CAB0]/10 w-full flex flex-col md:flex-row justify-between items-center gap-4 reveal">
-      <p class="text-[#6B5E4A] text-xs tracking-widest">© Kosmus Studio. Order brought to chaos.</p>
-      <p class="text-[#6B5E4A] text-xs tracking-widest uppercase">Curated in Jamaica</p>
-      <span class="text-[#B8912A] text-xs tracking-[0.2em]">KOSMUS.AGENCY</span>
-    </div>
-  </div>
-</footer>
-
-<!-- Tally embed script -->
-<script>
-  var d = document,
-      w = "https://tally.so/widgets/embed.js",
-      v = function() {
-        "undefined" != typeof Tally
-          ? Tally.loadEmbeds()
-          : d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e) {
-              e.src = e.dataset.tallySrc;
-            });
-      };
-  if ("undefined" != typeof Tally) { v(); }
-  else if (d.querySelector('script[src="' + w + '"]') == null) {
-    var s = d.createElement("script");
-    s.src = w; s.onload = v; s.onerror = v; d.body.appendChild(s);
-  }
-</script>
-
-<script>
-  // ── Smart Dynamic Months ──────────────────────────────────
-  (function updateDynamicMonths() {
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    const now = new Date();
-    const currentDay = now.getDate();
-    const currentMonthIndex = now.getMonth();
+    .audit-col { position: relative; }
+    .img-wrap { 
+      width: 100%; 
+      aspect-ratio: 16/10; 
+      overflow: hidden; 
+      background: #111; 
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1.5rem;
+    }
+    .img-wrap img { 
+      width: 100%; height: 100%; object-fit: cover; 
+      transition: transform 0.8s var(--ease);
+      filter: grayscale(20%);
+    }
+    .audit-col:hover img { transform: scale(1.03); }
     
-    const scarcityEl = document.getElementById('scarcity-text');
-    const reviewEl = document.getElementById('review-text');
-
-    if (currentDay >= 20) {
-      const nextMonthIndex = (currentMonthIndex + 1) % 12;
-      const nextMonthName = monthNames[nextMonthIndex];
-      
-      if (scarcityEl) {
-        scarcityEl.textContent = `Now booking for ${nextMonthName} — 2 spots available`;
-      }
-      if (reviewEl) {
-        reviewEl.textContent = `Currently taking 2 clients per month · Reviewing ${nextMonthName} applications now`;
-      }
-    } else {
-      const currentMonthName = monthNames[currentMonthIndex];
-      if (scarcityEl) {
-        scarcityEl.textContent = `Taking 2 new clients in ${currentMonthName} — 1 spot remaining`;
-      }
-      if (reviewEl) {
-        reviewEl.textContent = `Currently taking 2 clients per month · Reviewing ${currentMonthName} applications now`;
-      }
+    .side-label { 
+      position: absolute; top: 1rem; left: 1rem; 
+      background: rgba(12, 10, 7, 0.8); backdrop-filter: blur(4px);
+      padding: 0.4rem 0.8rem; font-size: 0.65rem; font-weight: 700; color: var(--gold); 
+      text-transform: uppercase; letter-spacing: 0.1em;
     }
-  })();
+    .after .side-label { background: var(--gold); color: var(--white); }
 
-  // ── Mobile menu ──────────────────────────────────────────
-  const toggle   = document.getElementById('menu-toggle');
-  const menu     = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('icon-open');
-  const iconClose= document.getElementById('icon-close');
+    .caption { font-size: 1.1rem; color: var(--paper); opacity: 0.9; line-height: 1.4; }
+    .before .caption { border-left: 2px solid rgba(255,255,255,0.1); padding-left: 1rem; opacity: 0.5; }
+    .after .caption { border-left: 2px solid var(--gold); padding-left: 1rem; }
 
-  toggle.addEventListener('click', () => {
-    const isOpen = menu.classList.toggle('open');
-    toggle.setAttribute('aria-expanded', isOpen);
-    iconOpen.style.display  = isOpen ? 'none'  : 'block';
-    iconClose.style.display = isOpen ? 'block' : 'none';
-  });
+    .audit-footer { text-align: center; margin-top: 4rem; }
+    .audit-footer p { font-family: var(--serif); font-size: 1.5rem; color: var(--paper); opacity: 0.6; font-style: italic; margin-bottom: 2rem; }
 
-  menu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      menu.classList.remove('open');
-      toggle.setAttribute('aria-expanded', 'false');
-      iconOpen.style.display  = 'block';
-      iconClose.style.display = 'none';
-    });
-  });
+    /* OTHER SECTIONS */
+    section { padding: 8rem 8%; }
+    .bg-paper { background: var(--paper); color: var(--ink); }
+    .apply-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
 
-  // ── Scroll reveal ────────────────────────────────────────
+    @media (max-width: 1000px) {
+      .audit-row, .apply-grid { grid-template-columns: 1fr; gap: 4rem; }
+      .audit-header h2 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="c-dot"></div>
+<div id="c-ring"></div>
+
+<div class="nav-wrapper">
+  <nav>
+    <a href="#" class="logo">K<span>O</span>SMUS</a>
+    <a href="#apply" class="nav-cta">Request Evaluation</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="particle-canvas"></canvas>
+  <div class="hero-content reveal active">
+    <h1>Most financial coach websites leak clients in the first 5 seconds.</h1>
+    <p>We fix broken website structure so high-ticket coaches convert consistently without increasing traffic.</p>
+    <a href="#apply" class="cta-main">Request Evaluation →</a>
+  </div>
+</section>
+
+<!-- LIVE SYSTEM AUDIT SECTION -->
+<section class="audit-section" id="audit">
+  <div class="audit-header reveal">
+    <span class="label-gold">Live System Audit</span>
+    <h2>Same offer. Different structure.<br>Different outcome.</h2>
+    <p>This is what happens when structure replaces noise.</p>
+  </div>
+
+  <!-- ROW 1: HERO -->
+  <div class="audit-row reveal">
+    <div class="audit-col before">
+      <span class="side-label">Before</span>
+      <div class="img-wrap">
+        <img src="/images/_1.jpg" alt="Before: Hero Clutter" loading="lazy">
+      </div>
+      <p class="caption">No clear offer. User has to figure it out.</p>
+    </div>
+    <div class="audit-col after">
+      <span class="side-label">After</span>
+      <div class="img-wrap">
+        <img src="/images/redo_1.jpg" alt="After: Clear Hero" loading="lazy">
+      </div>
+      <p class="caption">Clear system. Clear transformation. One action.</p>
+    </div>
+  </div>
+
+  <!-- ROW 2: OFFER CONFUSION -->
+  <div class="audit-row reveal">
+    <div class="audit-col before">
+      <span class="side-label">Before</span>
+      <div class="img-wrap">
+        <img src="/images/_2.jpg" alt="Before: Product Confusion" loading="lazy">
+      </div>
+      <p class="caption">Multiple entry points. No defined path.</p>
+    </div>
+    <div class="audit-col after">
+      <span class="side-label">After</span>
+      <div class="img-wrap">
+        <img src="/images/redo_2.jpg" alt="After: Guided Path" loading="lazy">
+      </div>
+      <p class="caption">Guided diagnosis → controlled flow.</p>
+    </div>
+  </div>
+
+  <!-- ROW 3: CHAOS -->
+  <div class="audit-row reveal">
+    <div class="audit-col before">
+      <span class="side-label">Before</span>
+      <div class="img-wrap">
+        <img src="/images/_3.jpg" alt="Before: Content Chaos" loading="lazy">
+      </div>
+      <p class="caption">Everything competes. Nothing converts.</p>
+    </div>
+    <div class="audit-col after">
+      <span class="side-label">After</span>
+      <div class="img-wrap">
+        <img src="/images/redo_3.jpg" alt="After: Systematic Layout" loading="lazy">
+      </div>
+      <p class="caption">Problem → Solution → System.</p>
+    </div>
+  </div>
+
+  <!-- ROW 4: CTA PROBLEM -->
+  <div class="audit-row reveal">
+    <div class="audit-col before">
+      <span class="side-label">Before</span>
+      <div class="img-wrap">
+        <img src="/images/_4.jpg" alt="Before: CTA Noise" loading="lazy">
+      </div>
+      <p class="caption">Too many directions. No commitment.</p>
+    </div>
+    <div class="audit-col after">
+      <span class="side-label">After</span>
+      <div class="img-wrap">
+        <img src="/images/redo_4.jpg" alt="After: Focused Conversion" loading="lazy">
+      </div>
+      <p class="caption">Single path. Repeated action.</p>
+    </div>
+  </div>
+
+  <div class="audit-footer reveal">
+    <p>Full breakdown available on request.</p>
+    <a href="#apply" class="cta-main">Request Your Audit →</a>
+  </div>
+</section>
+
+<!-- INTAKE -->
+<section class="bg-paper" id="apply">
+  <div class="apply-grid">
+    <div class="reveal">
+      <h2 style="font-family: var(--serif); font-size: 3.5rem; font-weight: 300; margin-bottom: 2rem;">Request Evaluation.</h2>
+      <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2.5rem;">We only accept builds where structural growth is guaranteed. Most applications are not accepted.</p>
+    </div>
+    <div class="reveal" style="background: var(--white); padding: 1.5rem; border: 1px solid rgba(0,0,0,0.08);">
+      <iframe data-tally-src="https://tally.so/embed/Np400W?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="520" frameborder="0" title="Kosmus Intake"></iframe>
+    </div>
+  </div>
+</section>
+
+<script>
+  // REVEAL ANIMATION
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) entry.target.classList.add('active');
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  document.querySelectorAll('.reveal, .draw-rule').forEach(el => observer.observe(el));
+  // CURSOR
+  const dot = document.getElementById('c-dot');
+  const ring = document.getElementById('c-ring');
+  let mX = -100, mY = -100, rX = -100, rY = -100;
+  document.addEventListener('mousemove', e => { mX = e.clientX; mY = e.clientY; dot.style.left = `${mX}px`; dot.style.top = `${mY}px`; });
+  function renderCursor() { rX += (mX - rX) * 0.15; rY += (mY - rY) * 0.15; ring.style.left = `${rX}px`; ring.style.top = `${rY}px`; requestAnimationFrame(renderCursor); }
+  renderCursor();
 
-  // ── Parallax ─────────────────────────────────────────────
-  window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    document.querySelectorAll('.parallax-text').forEach(el => {
-      const speed = el.getAttribute('data-speed') || 0.05;
-      el.style.transform = `translateY(${scrolled * speed}px)`;
-    });
-  });
+  // PARTICLES (GOLD DUST)
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize); resize();
+  class Particle {
+    constructor() { this.reset(); }
+    reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.size = Math.random() * 1.5; this.speedY = Math.random() * 0.2 + 0.1; this.opacity = Math.random() * 0.3; }
+    update() { this.y -= this.speedY; if (this.y < 0) this.reset(); }
+    draw() { ctx.fillStyle = `rgba(184, 145, 42, ${this.opacity})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+  }
+  for (let i = 0; i < 40; i++) particles.push(new Particle());
+  function animate() { ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(animate); }
+  animate();
 
-  // ── Smooth scroll ────────────────────────────────────────
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
+  // TALLY LOAD
+  (function(){var d=document,w="https://tally.so/widgets/embed.js";var v=function(){if(typeof Tally!=="undefined"){Tally.loadEmbeds()}else{d.querySelectorAll("iframe[data-tally-src]:not([src])").forEach(function(e){e.src=e.dataset.tallySrc})}};if(typeof Tally!=="undefined"){v()}else if(d.querySelector('script[src="'+w+'"]')==null){var s=d.createElement("script");s.src=w;s.onload=v;s.onerror=v;d.body.appendChild(s)}})();
 </script>
 
 </body>
