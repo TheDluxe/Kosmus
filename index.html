@@ -3,264 +3,299 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KOSMUS | System Architecture for Financial Coaches</title>
+  <title>KOSMUS | Conversion Architecture</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
 
   <style>
     :root {
-      --ink: #0C0A07;
-      --paper: #F5F0E8;
+      --ink: #0F0E0C; 
+      --paper: #F4F0E8;
       --gold: #B8912A;
-      --white: #FDFAF4;
-      --text-muted: #52493A;
+      --white-off: #FAF7F2; 
+      --muted: #7A6F60;
       --serif: 'Cormorant Garamond', serif;
       --sans: 'DM Sans', sans-serif;
       --ease: cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; font-size: 16px; background: var(--ink); }
-    body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.5; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    html { scroll-behavior: smooth; background: var(--ink); }
+    body {
+      background: var(--paper); color: var(--ink);
+      font-family: var(--sans); line-height: 1.6;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; height: auto; }
 
-    /* UTILS */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 6%; }
     .reveal { opacity: 0; transform: translateY(20px); transition: opacity 1s var(--ease), transform 1s var(--ease); }
     .reveal.active { opacity: 1; transform: translateY(0); }
-    .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
 
-    /* NAV */
-    .nav-wrapper { position: fixed; top: 1.5rem; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1000px; z-index: 1000; }
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 0.7rem 1.8rem; background: rgba(245, 240, 232, 0.95); backdrop-filter: blur(12px); border-radius: 50px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
-    .logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; text-decoration: none; color: var(--ink); letter-spacing: 0.1em; }
-    .logo span { color: var(--gold); }
-    .nav-cta { background: var(--ink); color: var(--white); padding: 0.7rem 1.4rem; font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; text-decoration: none; border-radius: 40px; }
-
-    /* HERO */
-    .hero { min-height: 90vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; background: var(--ink); overflow: hidden; padding-top: 5rem;}
-    #particle-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.4; }
-    .hero-content { max-width: 850px; z-index: 2; padding: 0 5%; }
-    .hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 7vw, 4.2rem); line-height: 1.1; font-weight: 400; margin-bottom: 1.5rem; color: var(--white); }
-    .hero p { font-size: 1.25rem; color: var(--paper); opacity: 0.8; max-width: 55ch; margin: 0 auto 2.5rem; line-height: 1.6; }
-    
-    .cta-group { display: flex; gap: 1.5rem; justify-content: center; align-items: center; }
-    .cta-main { background: var(--gold); color: var(--white); padding: 1.2rem 2.5rem; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; text-decoration: none; transition: 0.3s var(--ease); }
-    .cta-secondary { color: var(--paper); opacity: 0.6; text-decoration: none; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 2px; transition: 0.3s; }
-
-    /* AUDIT SECTION */
-    .audit-section { padding: 10rem 0; background: #0A0907; border-top: 1px solid rgba(255,255,255,0.05); }
-    .audit-header { text-align: center; margin-bottom: 6rem; }
-    .audit-header h2 { font-family: var(--serif); font-size: 3rem; color: var(--white); margin-bottom: 1rem; font-weight: 400; }
-    .audit-header p { color: var(--paper); opacity: 0.5; font-size: 1.1rem; }
-
-    .audit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 8rem; align-items: flex-start; }
-    .comp-box { position: relative; }
-    .img-frame { width: 100%; aspect-ratio: 16/10; overflow: hidden; background: #111; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 1.5rem; }
-    .img-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.6s var(--ease); }
-    .comp-box:hover img { opacity: 1; transform: scale(1.02); }
-    
-    .label-tag { position: absolute; top: 1rem; left: 1rem; padding: 0.4rem 0.8rem; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; background: rgba(0,0,0,0.8); color: #777; border: 1px solid rgba(255,255,255,0.1); }
-    .after .label-tag { background: var(--gold); color: var(--white); }
-
-    .caption { font-size: 0.95rem; color: var(--paper); line-height: 1.5; padding-left: 1.2rem; }
-    .before .caption { opacity: 0.4; border-left: 1px solid rgba(255,255,255,0.1); }
-    .after .caption { opacity: 1; border-left: 1px solid var(--gold); }
-
-    /* SYSTEM TIERS SECTION */
-    .system-tiers { padding: 10rem 0; background: var(--ink); color: var(--paper); border-top: 1px solid rgba(255,255,255,0.05);}
-    .tiers-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 4rem; }
-    .tier-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 3.5rem 2.5rem; position: relative; }
-    .tier-card.featured { border-color: var(--gold); background: rgba(184, 145, 42, 0.03); transform: scale(1.05); z-index: 2; }
-    .step-num { color: var(--gold); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.2em; display: block; margin-bottom: 1.5rem; }
-    .tier-card h3 { font-family: var(--serif); font-size: 2rem; margin-bottom: 0.5rem; color: var(--white); }
-    .price { font-size: 1.2rem; font-weight: 700; color: var(--gold); margin-bottom: 2rem; display: block; }
-    .tier-list { list-style: none; margin-bottom: 2rem; }
-    .tier-list li { font-size: 0.9rem; margin-bottom: 0.8rem; opacity: 0.6; display: flex; gap: 0.8rem; }
-    .tier-list li::before { content: "—"; color: var(--gold); }
-    .tier-lock { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); font-weight: 700; border: 1px solid var(--gold); padding: 0.5rem; display: block; text-align: center; }
-
-    /* INTAKE SECTION */
-    .intake { padding: 10rem 0; background: var(--white); }
-    .apply-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
-    .rule-block { background: rgba(184, 145, 42, 0.05); border-left: 3px solid var(--gold); padding: 1.5rem; margin: 2rem 0; font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
-
-    /* CURSOR */
+    /* CUSTOM CURSOR */
     #c-dot, #c-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); display: none; }
     @media (pointer: fine) { #c-dot, #c-ring { display: block; } }
     #c-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
     #c-ring { width: 34px; height: 34px; border: 1px solid var(--gold); border-radius: 50%; opacity: 0.2; }
 
+    /* NAVIGATION */
+    .nav-wrap { position: fixed; top: 1.2rem; left: 50%; transform: translateX(-50%); width: 90%; max-width: 1020px; z-index: 1000; }
+    nav { 
+      display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 1.8rem; 
+      background: rgba(244, 240, 232, 0.92); backdrop-filter: blur(12px); border-radius: 50px; 
+      border: 1px solid rgba(15, 14, 12, 0.08); box-shadow: 0 10px 30px rgba(15, 14, 12, 0.05); 
+    }
+    .logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; text-decoration: none; color: var(--ink); letter-spacing: 0.1em; }
+    .logo span { color: var(--gold); }
+    .nav-cta { background: var(--ink); color: var(--white-off); padding: 0.6rem 1.4rem; font-size: 0.65rem; text-transform: uppercase; font-weight: 700; letter-spacing: 0.1em; text-decoration: none; border-radius: 40px; }
+
+    /* HERO */
+    .hero { 
+      min-height: 100vh; display: flex; align-items: center; justify-content: center; 
+      text-align: center; background: var(--ink); position: relative; overflow: hidden;
+      padding: 6rem 5% 2rem; 
+    }
+    #particle-canvas { position: absolute; inset: 0; pointer-events: none; opacity: 0.45; z-index: 1; }
+    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+    h1 { font-family: var(--serif); font-weight: 400; color: var(--white-off); font-size: clamp(2.4rem, 8vw, 4.2rem); line-height: 1.1; margin-bottom: 1.2rem; }
+    .hero p { color: var(--paper); opacity: 0.8; font-size: clamp(1rem, 2vw, 1.2rem); max-width: 52ch; margin: 0 auto 2.5rem; }
+    .cta-main { display: inline-block; background: var(--gold); color: var(--white-off); padding: 1.1rem 2.8rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; text-decoration: none; transition: transform 0.3s var(--ease); }
+    .cta-main:hover { transform: translateY(-2px); }
+    .constraint { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); font-weight: 700; margin-top: 1.5rem; display: block; }
+
+    /* SECTION BASICS */
+    section { padding: 120px 0; }
+    .bg-dark { background: #131210; color: var(--white-off); border-top: 1px solid rgba(244, 240, 232, 0.03); }
+    .label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.4em; color: var(--gold); margin-bottom: 1rem; display: block; }
+    h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 5vw, 3rem); line-height: 1.2; margin-bottom: 1.5rem; }
+
+    /* PROBLEM SECTION */
+    .problem-section { text-align: center; }
+    .problem-section .problem-body { max-width: 65ch; margin: 0 auto; }
+    .problem-section .problem-body p { font-size: clamp(1.1rem, 2vw, 1.35rem); opacity: 0.9; font-family: var(--serif); font-style: italic; margin-bottom: 1rem; }
+    .problem-section .problem-body p:last-child { margin-bottom: 0; }
+
+    /* MECHANISM */
+    .mechanism { background: var(--paper); color: var(--ink); }
+    .layer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 60px; }
+    .layer-item { border-left: 1px solid rgba(184, 145, 42, 0.4); padding-left: 24px; }
+    .layer-item strong { display: block; color: var(--gold); font-size: 0.9rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .layer-item p { font-size: 0.95rem; opacity: 0.7; }
+
+    /* DIAGNOSTIC ROWS (8 IMAGES) */
+    .audit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 80px; align-items: start; }
+    .audit-row:first-of-type { margin-top: 100px; }
+    .system-label { grid-column: 1 / -1; color: var(--gold); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3em; border-bottom: 1px solid rgba(184, 145, 42, 0.15); padding-bottom: 10px; margin-bottom: 10px; }
+    .diag-box { position: relative; width: 100%; }
+    .img-frame { width: 100%; aspect-ratio: 16/10; background: #181715; border: 1px solid rgba(244, 240, 232, 0.04); margin-bottom: 1.5rem; overflow: hidden; }
+    .img-frame img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.6s var(--ease); }
+    .diag-box:hover img { opacity: 0.95; transform: scale(1.02); }
+    
+    .state-tag { position: absolute; top: 1rem; left: 1rem; padding: 0.4rem 0.8rem; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; background: rgba(15, 14, 12, 0.85); color: #777; border: 1px solid rgba(244, 240, 232, 0.08); }
+    .after .state-tag { background: var(--gold); color: var(--white-off); border: none; }
+
+    .caption { font-size: 0.95rem; opacity: 0.7; line-height: 1.5; }
+    .after .caption { color: var(--white-off); opacity: 1; border-left: 2px solid var(--gold); padding-left: 1rem; }
+
+    /* DIAGNOSTIC POSITIONING INTRO */
+    .diag-intro { max-width: 700px; margin-bottom: 2.5rem; }
+    .diag-intro p { opacity: 0.7; font-size: 0.95rem; line-height: 1.7; margin-bottom: 0.6rem; }
+    .diag-close { margin-top: 4rem; border-top: 1px solid rgba(244,240,232,0.06); padding-top: 2rem; }
+    .diag-close p { font-size: 1.05rem; font-family: var(--serif); font-style: italic; opacity: 0.85; }
+
+    /* OFFER */
+    .offer-list { list-style: none; margin: 40px 0; max-width: 700px; }
+    .offer-list li { padding: 1.2rem 0; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; gap: 1.5rem; font-size: 1.05rem; }
+    .offer-list li::before { content: "→"; color: var(--gold); font-weight: 700; }
+    .offer-close { margin-top: 2rem; font-size: 0.9rem; font-family: var(--serif); font-style: italic; opacity: 0.6; }
+
+    /* INTAKE */
+    .intake-area { background: var(--white-off); border-top: 1px solid rgba(15, 14, 12, 0.05); }
+    .intake-box { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
+    .rule-block { background: rgba(184, 145, 42, 0.06); border-left: 4px solid var(--gold); padding: 1.5rem; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em; margin: 2rem 0; }
+
     @media (max-width: 900px) {
-      .audit-row, .tiers-grid, .apply-grid { grid-template-columns: 1fr; }
-      .tier-card.featured { transform: none; }
+      .audit-row, .layer-grid, .intake-box { grid-template-columns: 1fr; gap: 3rem; }
+      section { padding: 80px 0; }
+      .hero { padding-top: 8rem; }
     }
   </style>
 </head>
+
 <body>
 
 <div id="c-dot"></div>
 <div id="c-ring"></div>
 
-<div class="nav-wrapper">
+<div class="nav-wrap">
   <nav>
     <a href="#" class="logo">K<span>O</span>SMUS</a>
     <a href="#apply" class="nav-cta">Request Audit</a>
   </nav>
 </div>
 
-<!-- HERO SECTION -->
+<!-- 1. HERO -->
 <section class="hero">
   <canvas id="particle-canvas"></canvas>
   <div class="hero-content reveal active">
-    <h1>We rebuild financial coach websites into guided conversion systems.</h1>
-    <p>Most websites lose revenue through structural friction. We identify it, rebuild it, and convert traffic into booked calls without increasing traffic.</p>
-    <div class="cta-group">
-        <a href="#apply" class="cta-main">Request System Audit</a>
-        <a href="#audit" class="cta-secondary">See How It Works</a>
+    <h1>Your website is either closing clients or silently losing them.</h1>
+    <p>Most high-ticket websites don't fail because of traffic. They fail because the structure never guides a decision. We rebuild your page into a single, controlled conversion path where confusion cannot exist.</p>
+    <a href="#apply" class="cta-main">Request System Audit</a>
+    <span class="constraint">Only accepting businesses with $3,000+ offers</span>
+  </div>
+</section>
+
+<!-- 2. PROBLEM (DARK) -->
+<section class="bg-dark problem-section">
+  <div class="container reveal">
+    <span class="label">System Breakdown</span>
+    <h2>Where conversion actually breaks</h2>
+    <div class="problem-body">
+      <p>Conversion loss is not a design problem.</p>
+      <p>It happens when your page creates too many decisions and not enough direction.</p>
+      <p>When users have to think, compare, or interpret — they leave.</p>
     </div>
   </div>
 </section>
 
-<!-- AUDIT SECTION (EXPANDED TO 4 ROWS / 8 IMAGES) -->
-<section class="audit-section" id="audit">
-  <div class="container">
-    <div class="audit-header reveal">
-      <h2>System Breakdown: Live Conversion Audit</h2>
-      <p>We don’t redesign websites. We map where decision systems fail, then rebuild the flow.</p>
-    </div>
-
-    <!-- ROW 1: HERO SYSTEM -->
-    <div class="audit-row reveal">
-      <div class="comp-box before">
-        <span class="label-tag">Before</span>
-        <div class="img-frame"><img src="images/before-1.png" alt="Initial Entropy"></div>
-        <p class="caption">Decision entropy — user has no guided conversion path or clear value threshold.</p>
+<!-- 3. MECHANISM (LIGHT) -->
+<section class="mechanism">
+  <div class="container reveal">
+    <span class="label">Diagnostic Model</span>
+    <h2>We don't redesign websites. We fix broken decision systems.</h2>
+    <div class="layer-grid">
+      <div class="layer-item">
+        <strong>Entry Friction</strong>
+        <p>Users don't understand what this is in the first 3 seconds.</p>
       </div>
-      <div class="comp-box after">
-        <span class="label-tag">After</span>
-        <div class="img-frame"><img src="images/redo_1.png" alt="Hero Upgrade"></div>
-        <p class="caption">Clear transformation architecture. Single primary action enforced above the fold.</p>
+      <div class="layer-item">
+        <strong>Decision Overload</strong>
+        <p>Too many paths. No clear next step.</p>
       </div>
-    </div>
-
-    <!-- ROW 2: ENTRY FLOW / ROUTING -->
-    <div class="audit-row reveal">
-        <div class="comp-box before">
-          <span class="label-tag">Before</span>
-          <div class="img-frame"><img src="images/before-2.png" alt="Entry Chaos"></div>
-          <p class="caption">Scattered routing logic creates choice paralysis at the primary point of entry.</p>
-        </div>
-        <div class="comp-box after">
-          <span class="label-tag">After</span>
-          <div class="img-frame"><img src="images/redo_2.png" alt="Routing Upgrade"></div>
-          <p class="caption">Guided diagnosis pathway. System-controlled decision flow clarifies the offer.</p>
-        </div>
-    </div>
-
-    <!-- ROW 3: STRUCTURAL HIERARCHY -->
-    <div class="audit-row reveal">
-        <div class="comp-box before">
-          <span class="label-tag">Before</span>
-          <div class="img-frame"><img src="images/before-3.png" alt="Hierarchy Failure"></div>
-          <p class="caption">Structural chaos — total failure in behavioral hierarchy and user context retention.</p>
-        </div>
-        <div class="comp-box after">
-          <span class="label-tag">After</span>
-          <div class="img-frame"><img src="images/redo_3.png" alt="Structural Upgrade"></div>
-          <p class="caption">Reinforced behavioral hierarchy. Structural logic guides the user toward commitment.</p>
-        </div>
-    </div>
-
-    <!-- ROW 4: CONVERSION ENDPOINT -->
-    <div class="audit-row reveal">
-        <div class="comp-box before">
-          <span class="label-tag">Before</span>
-          <div class="img-frame"><img src="images/before-4.png" alt="CTA Leakage"></div>
-          <p class="caption">Endpoint friction — weak commitment signals leading to massive conversion leakage.</p>
-        </div>
-        <div class="comp-box after">
-          <span class="label-tag">After</span>
-          <div class="img-frame"><img src="images/redo_4.png" alt="Conversion Enforced"></div>
-          <p class="caption">Single-path conversion logic. All structural friction removed from the final action.</p>
-        </div>
+      <div class="layer-item">
+        <strong>Weak Hierarchy</strong>
+        <p>The main offer is not visually or psychologically dominant.</p>
+      </div>
+      <div class="layer-item">
+        <strong>Conversion Friction</strong>
+        <p>Final action requires too much trust, effort, or thinking.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- OFFER POSITIONING -->
-<section style="padding: 10rem 0; text-align: center; background: var(--paper);">
-    <div class="container reveal">
-        <h2 style="font-family: var(--serif); font-size: 3rem; margin-bottom: 1.5rem;">We only take on systems where structural improvement is necessary.</h2>
-        <p style="max-width: 650px; margin: 0 auto; font-size: 1.2rem; opacity: 0.7;">If your website is already a functioning conversion system, we will not take the project. We specialize in identifying and repairing architectural failures.</p>
-    </div>
-</section>
-
-<!-- SYSTEM TIERS LOGIC -->
-<section class="system-tiers">
-    <div class="container">
-        <div class="audit-header reveal">
-            <h2>How The System Works</h2>
-            <p>A linear path from diagnosis to optimized performance.</p>
-        </div>
-
-        <div class="tiers-grid reveal">
-            <div class="tier-card">
-                <span class="step-num">Step 1 — Diagnose</span>
-                <h3>System Audit</h3>
-                <span class="price">$2,000</span>
-                <ul class="tier-list">
-                    <li>Behavioral breakdown map</li>
-                    <li>Funnel friction report</li>
-                    <li>Priority fixes identification</li>
-                </ul>
-            </div>
-
-            <div class="tier-card featured">
-                <span class="step-num">Step 2 — Build</span>
-                <h3>Core System</h3>
-                <span class="price">$4,500</span>
-                <ul class="tier-list">
-                    <li>Redesigned website architecture</li>
-                    <li>Guided decision flow</li>
-                    <li>Conversion hierarchy system</li>
-                </ul>
-            </div>
-
-            <div class="tier-card">
-                <span class="step-num">Step 3 — Optimize</span>
-                <h3>Performance</h3>
-                <span class="price">$2,000/mo</span>
-                <ul class="tier-list">
-                    <li>Monthly conversion adjustments</li>
-                    <li>Funnel refinement</li>
-                    <li>Performance monitoring</li>
-                </ul>
-                <span class="tier-lock">Unlocked after Step 2 only</span>
-            </div>
-        </div>
-        <p style="text-align: center; margin-top: 4rem; opacity: 0.5; font-size: 0.9rem;">“We do not offer retainers on systems we did not build.”</p>
-    </div>
-</section>
-
-<!-- INTAKE SECTION -->
-<section class="intake" id="apply">
+<!-- 4. DIAGNOSTIC PROOF (8 IMAGES / 4 LAYERS) -->
+<section class="bg-dark">
   <div class="container">
-    <div class="apply-grid">
-      <div class="reveal">
-        <h2 style="font-family: var(--serif); font-size: 3.5rem; font-weight: 300; margin-bottom: 2rem;">System Audit Application</h2>
-        <div class="rule-block">We only accept applications for businesses generating $3K+ offers.</div>
-        <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 2rem;">Successful candidates are notified within 48 hours. If accepted, you will receive a comprehensive system breakdown of your current structural failures.</p>
-      </div>
-      <div class="reveal" style="background: var(--white); border: 1px solid rgba(0,0,0,0.08); padding: 1.5rem;">
-        <iframe data-tally-src="https://tally.so/embed/Np400W?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="550" frameborder="0" title="Kosmus Intake"></iframe>
+    <div class="reveal">
+      <span class="label">Case Observation</span>
+      <h2>Systemic Failure vs. Controlled Structure</h2>
+      <div class="diag-intro">
+        <p>Every website has the same breakdown patterns: attention split across multiple ideas, unclear priority of offers, weak directional flow, friction at the point of action.</p>
+        <p>We remove all four.</p>
+        <p style="font-weight:700; opacity:1; color: var(--white-off);">We don't "improve design." We eliminate decision chaos.</p>
       </div>
     </div>
-    <p style="text-align: center; margin-top: 4rem; opacity: 0.4; font-size: 0.85rem;">If accepted, you will receive a system breakdown within 48 hours.</p>
+
+    <!-- Layer 01 -->
+    <div class="audit-row reveal">
+      <span class="system-label">Layer 01 — Entry Friction</span>
+      <div class="diag-box before">
+        <span class="state-tag">Before</span>
+        <div class="img-frame"><img src="images/before-1.png" alt="Entry Fail"></div>
+        <p class="caption">Behavioral fragmentation—entry point fails to establish primary user context.</p>
+      </div>
+      <div class="diag-box after">
+        <span class="state-tag">After</span>
+        <div class="img-frame"><img src="images/redo_1.png" alt="Entry Fix"></div>
+        <p class="caption">Architectural constraint—establishing a single-path value threshold.</p>
+      </div>
+    </div>
+
+    <!-- Layer 02 -->
+    <div class="audit-row reveal">
+      <span class="system-label">Layer 02 — Decision Routing</span>
+      <div class="diag-box before">
+        <span class="state-tag">Before</span>
+        <div class="img-frame"><img src="images/before-2.png" alt="Routing Fail"></div>
+        <p class="caption">Structural ambiguity—scattered routing creates decision fatigue.</p>
+      </div>
+      <div class="diag-box after">
+        <span class="state-tag">After</span>
+        <div class="img-frame"><img src="images/redo_2.png" alt="Routing Fix"></div>
+        <p class="caption">Structured routing—navigation enforces a high-intent diagnostic flow.</p>
+      </div>
+    </div>
+
+    <!-- Layer 03 -->
+    <div class="audit-row reveal">
+      <span class="system-label">Layer 03 — Hierarchy Control</span>
+      <div class="diag-box before">
+        <span class="state-tag">Before</span>
+        <div class="img-frame"><img src="images/before-3.png" alt="Hierarchy Fail"></div>
+        <p class="caption">Hierarchical collapse—competition between sub-offers triggers leakage.</p>
+      </div>
+      <div class="diag-box after">
+        <span class="state-tag">After</span>
+        <div class="img-frame"><img src="images/redo_3.png" alt="Hierarchy Fix"></div>
+        <p class="caption">Enforced hierarchy—isolating the core offer for maximum retention.</p>
+      </div>
+    </div>
+
+    <!-- Layer 04 -->
+    <div class="audit-row reveal">
+      <span class="system-label">Layer 04 — Conversion Boundary</span>
+      <div class="diag-box before">
+        <span class="state-tag">Before</span>
+        <div class="img-frame"><img src="images/before-4.png" alt="Boundary Fail"></div>
+        <p class="caption">Terminal leakage—friction at the boundary prevents system commitment.</p>
+      </div>
+      <div class="diag-box after">
+        <span class="state-tag">After</span>
+        <div class="img-frame"><img src="images/redo_4.png" alt="Boundary Fix"></div>
+        <p class="caption">Boundary enforcement—removing structural noise to solidify the final action.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. OFFER -->
+<section>
+  <div class="container reveal">
+    <span class="label">The Deliverable</span>
+    <h2>What the audit shows you</h2>
+    <ul class="offer-list">
+      <li>Exactly where your website loses conversions.</li>
+      <li>Which elements are diluting intent.</li>
+      <li>Where users mentally drop off.</li>
+      <li>How to restructure your page into a single conversion flow.</li>
+    </ul>
+    <p class="offer-close">This is not branding feedback. It is structural diagnosis of revenue loss.</p>
+  </div>
+</section>
+
+<!-- 6. INTAKE -->
+<section class="intake-area" id="apply">
+  <div class="container">
+    <div class="intake-box reveal">
+      <div>
+        <span class="label">Qualification</span>
+        <h2 style="color: var(--ink);">Request System Audit</h2>
+        <div class="rule-block">This audit is only for businesses already generating $3,000+ per offer.</div>
+        <p style="opacity: 0.7; margin-bottom: 1rem;">We don't fix early-stage positioning problems.</p>
+        <p style="opacity: 0.7; margin-bottom: 2rem;">We fix conversion systems that are already working — but leaking revenue.</p>
+        <p style="font-size: 0.8rem; font-weight: 700; opacity: 0.4;">MANUAL REVIEW. RESPONSE WITHIN 48 HOURS.</p>
+      </div>
+      <div style="background: var(--white-off); border: 1px solid rgba(0,0,0,0.06); padding: 10px;">
+        <iframe data-tally-src="https://tally.so/embed/Np400W?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" loading="lazy" width="100%" height="520" frameborder="0" title="Kosmus Intake"></iframe>
+      </div>
+    </div>
   </div>
 </section>
 
 <script>
-  // HERO PARTICLES
+  // GOLD DUST PARTICLES
   const canvas = document.getElementById('particle-canvas');
   const ctx = canvas.getContext('2d');
   let particles = [];
@@ -268,11 +303,17 @@
   window.addEventListener('resize', resize); resize();
   class P {
     constructor() { this.reset(); }
-    reset() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.s = Math.random() * 1.5; this.v = Math.random() * 0.2 + 0.1; this.o = Math.random() * 0.3; }
+    reset() { 
+      this.x = Math.random() * canvas.width; 
+      this.y = Math.random() * canvas.height; 
+      this.s = Math.random() * 1.3 + 0.2; 
+      this.v = Math.random() * 0.15 + 0.05; 
+      this.o = Math.random() * 0.3; 
+    }
     update() { this.y -= this.v; if (this.y < 0) this.reset(); }
     draw() { ctx.fillStyle = `rgba(184, 145, 42, ${this.o})`; ctx.beginPath(); ctx.arc(this.x, this.y, this.s, 0, Math.PI*2); ctx.fill(); }
   }
-  for (let i=0; i<40; i++) particles.push(new P());
+  for (let i=0; i<45; i++) particles.push(new P());
   function anim() { ctx.clearRect(0,0,canvas.width,canvas.height); particles.forEach(p => { p.update(); p.draw(); }); requestAnimationFrame(anim); }
   anim();
 
